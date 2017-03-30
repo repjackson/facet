@@ -1,0 +1,5 @@
+.build*
+.DS_Store
+mup.json
+client/sem/*
+!client/sem/custom.semantic.json
