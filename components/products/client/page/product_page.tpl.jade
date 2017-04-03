@@ -2,13 +2,13 @@ with product
     .ui.container
         a.ui.top.left.attached.basic.button(href="/products")
             i.arrow.left.icon
-            |Marketplace
+            |marketplace
         if image_id
             img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
         .ui.stackable.divided.grid
             .eleven.wide.column
                 h1.ui.center.aligned.header #{title}
-                |!{description}
+                |!{content}
             .five.wide.column
                 .ui.horizontal.divider.header Price $#{price}
                 +add_to_cart

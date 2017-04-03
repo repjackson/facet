@@ -2,9 +2,9 @@ with event
     .ui.container.basic.segment
         .ui.center.aligned.header Edit Event
         .ui.form
-            +edit_title
+            +title
             .ui.segment
-                +edit_image
+                // +image
                 if eventbrite_image
                     .ui.header Eventbrite Image (custom image will replace this)
                     img.ui.medium.image(src=eventbrite_image)
@@ -19,14 +19,14 @@ with event
                     .ui.left.icon.input
                         i.calendar.icon
                         input#end_datetime(type='datetime-local' value=end_datetime)
-            +edit_location
-            +edit_link
-            +edit_description
-            +edit_tags
-            +edit_featured
-            +edit_reoccurring
+            +location
+            +link
+            +content
+            +tags
+            // +featured
+            // +reoccurring
             +published
             .ui.center.aligned.basic.segment
                 if tags
                     #save_event.ui.huge.green.button Save
-                +delete_button
+                +delete
