@@ -1,28 +1,68 @@
 template(name='voting')
-    .ui.basic.segment
+    .ui.basic.center.aligned.segment
         i.thumbs.up.link.big.icon.vote_up(class=vote_up_button_class)
         i.thumbs.down.link.big.icon.vote_down(class=vote_down_button_class)
-        |#{points}
+        // |#{points}
+
+template(name='rating')
+    .ui.hidden.fitted.divider
+    .ui.massive.star.rating
+
+
+template(name='toggle_friend')
+    if is_friend
+        #remove_friend.ui.basic.button
+            i.minus.red.icon
+            |Unfriend
+    else
+        #add_friend.ui.basic.button
+            i.plus.green.icon
+            |Friend
+
 
 template(name='published')
-    .field
-        label Status
-        if published
-            #unpublish.ui.green.button
-                |Published
-        else
-            #publish.ui.basic.button
-                |Private
+    .ui.hidden.fitted.divider
+    if published
+        #unpublish.ui.green.basic.button
+            |Published
+    else
+        #publish.ui.basic.button
+            |Private
 
+
+
+
+template(name='edit_this_button')
+    .ui.hidden.fitted.divider
+    unless is_editing
+        .edit_this.ui.basic.button
+            i.red.configure.icon
+            |Edit
+    else
+        .save_doc.ui.basic.button
+            i.green.check.icon
+            |Save
+
+template(name='edit_link')
+    unless is_editing
+        a.edit_this Edit
+    else
+        .save_doc.ui.basic.button
+            i.green.check.icon
+            |Save
 
 template(name='add_to_cart')
     .ui.fluid.basic.button
         i.large.add.to.cart.icon
         |Add to Cart
 
-template(name='delete')
-    #delete.ui.red.icon.button
+template(name='delete_button')
+    .ui.hidden.fitted.divider
+    #delete.ui.red.icon.basic.button
         i.trash.icon
+        
+template(name='delete_link')
+    a#delete(href='#') Delete
 
 template(name='featured')
     .field
@@ -38,7 +78,7 @@ template(name='featured')
             .ui.basic.label Unfeatured
 
 template(name='favorite')
-    .ui.basic.segment
-        i.heart.big.link.icon.favorite_item(class=favorite_item_class)
-        if favorite_count
-            | #{favorite_count}
+    .ui.hidden.fitted.divider
+    i.heart.large.link.icon.favorite_item(class=favorite_item_class)
+    if favorite_count
+        | #{favorite_count}

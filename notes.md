@@ -51,3 +51,6 @@ notes
     any kind of app, build examples of everything
     service marketplace, anyone can make money
     learn, prove it, gain reputation, add service, support life
+    
+    
+maintain frame
