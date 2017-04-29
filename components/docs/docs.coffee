@@ -29,8 +29,8 @@ Meteor.methods
 
 
 if Meteor.isClient
-    Template.docs.onCreated -> 
-        @autorun -> Meteor.subscribe('docs', selected_tags.array())
+    Template.docs.onCreated ->
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), Template.currentData().filter)
 
     Template.docs.helpers
         docs: -> 

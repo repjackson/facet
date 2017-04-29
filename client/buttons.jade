@@ -1,5 +1,5 @@
 template(name='voting')
-    .ui.basic.center.aligned.segment
+    .ui.center.aligned.segment
         i.thumbs.up.link.big.icon.vote_up(class=vote_up_button_class)
         i.thumbs.down.link.big.icon.vote_down(class=vote_down_button_class)
         // |#{points}
@@ -11,11 +11,11 @@ template(name='rating')
 
 template(name='toggle_friend')
     if is_friend
-        #remove_friend.ui.basic.button
+        #remove_friend.ui.button
             i.minus.red.icon
             |Unfriend
     else
-        #add_friend.ui.basic.button
+        #add_friend.ui.button
             i.plus.green.icon
             |Friend
 
@@ -23,10 +23,10 @@ template(name='toggle_friend')
 template(name='published')
     .ui.hidden.fitted.divider
     if published
-        #unpublish.ui.green.basic.button
+        #unpublish.ui.green.button
             |Published
     else
-        #publish.ui.basic.button
+        #publish.ui.button
             |Private
 
 
@@ -35,11 +35,11 @@ template(name='published')
 template(name='edit_this_button')
     .ui.hidden.fitted.divider
     unless is_editing
-        .edit_this.ui.basic.button
+        .edit_this.ui.button
             i.red.configure.icon
             |Edit
     else
-        .save_doc.ui.basic.button
+        .save_doc.ui.button
             i.green.check.icon
             |Save
 
@@ -47,18 +47,18 @@ template(name='edit_link')
     unless is_editing
         a.edit_this Edit
     else
-        .save_doc.ui.basic.button
+        .save_doc.ui.button
             i.green.check.icon
             |Save
 
 template(name='add_to_cart')
-    .ui.fluid.basic.button
+    .ui.fluid.button
         i.large.add.to.cart.icon
         |Add to Cart
 
 template(name='delete_button')
     .ui.hidden.fitted.divider
-    #delete.ui.red.icon.basic.button
+    #delete.ui.red.icon.button
         i.trash.icon
         
 template(name='delete_link')
@@ -67,15 +67,15 @@ template(name='delete_link')
 template(name='featured')
     .field
         if featured
-            #make_unfeatured.ui.basic.icon.button
+            #make_unfeatured.ui.icon.button
                 i.toggle.on.icon
         else
-            #make_featured.ui.basic.icon.button
+            #make_featured.ui.icon.button
                 i.toggle.off.icon
         if featured
-            .ui.green.basic.label Featured
+            .ui.green.label Featured
         else
-            .ui.basic.label Unfeatured
+            .ui.label Unfeatured
 
 template(name='favorite')
     .ui.hidden.fitted.divider

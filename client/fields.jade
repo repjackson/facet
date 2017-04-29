@@ -1,16 +1,16 @@
 template(name='title')
     .ui.labeled.input
-        .ui.basic.label Title
+        .ui.label Title
         input#title(type='text' value=title)
 
 template(name='subtitle')
     .ui.labeled.input
-        .ui.basic.label Subtitle
+        .ui.label Subtitle
         input#subtitle(type='text' value=subtitle)
 
 template(name='number')
     .ui.labeled.input
-        .ui.basic.label Number
+        .ui.label Number
         input#number(type='number' min='0' value=number)
 
 
@@ -19,7 +19,7 @@ template(name='tags')
     .field
         label Tags
         each tags
-            .ui.basic.button.doc_tag
+            .ui.button.doc_tag
                 i.minus.icon
                 |#{this}
         .ui.hidden.fitted.divider        
@@ -30,12 +30,12 @@ template(name='tags')
 
 template(name='price')
     .ui.labeled.input
-        .ui.basic.label Price in $
+        .ui.label Price in $
         input#price(type='number' min='0' value=price)
 
 template(name='link')
     .ui.labeled.input
-        .ui.basic.label Link (include http://)
+        .ui.label Link (include http://)
         .ui.left.icon.input
             i.linkify.icon
             input#link(type='text' value=url)
@@ -76,8 +76,8 @@ template(name='image')
             label Image
             .ui.large.image
                 img(src="{{c.url image_id width=500 crop='fit'}}")
-                a#remove_photo.ui.top.left.attached.link.basic.label Remove
-                .ui.bottom.right.attached.basic.label Image Id: #{image_id}
+                a#remove_photo.ui.top.left.attached.link.label Remove
+                .ui.bottom.right.attached.label Image Id: #{image_id}
     else
         .fields
             .field

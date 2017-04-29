@@ -52,8 +52,8 @@ template(name='product_item')
             img.ui.rounded.image(src="{{c.url image_id  width=175 height=175 crop='fill' gravity='face' }}")
         .content
             a.header(href="/product/view/#{_id}") #{title}
-            .meta
-                | published #{publish_when}
+            // .meta
+            //     | published #{publish_when}
             .description
                 p #{snippet}
                 a(href="/product/view/#{_id}") 
@@ -63,14 +63,3 @@ template(name='product_item')
                 i.tags.icon
                 each tags
                     .ui.compact.tiny.button.product_tag(class=tag_class) #{this}
-            if isInRole 'admin'
-                .extra
-                    i.red.configure.large.icon
-                    if published
-                        .ui.green.label published
-                    else
-                        .ui.red.label unpublished                        
-                    if featured
-                        .ui.green.label featured
-                    else
-                        .ui.red.label unfeatured

@@ -1,0 +1,16 @@
+with doc
+    .ui.container.basic.segment
+        .ui.center.aligned.header edit
+        .ui.form
+            +title
+            +image
+            +link
+            +content
+            +tags
+            +published
+            if isInRole 'admin'
+                +type
+            .ui.center.aligned.basic.segment
+                if tags
+                    #save.ui.big.green.button save
+                +delete_button

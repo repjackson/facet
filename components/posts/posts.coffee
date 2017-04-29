@@ -98,8 +98,8 @@ if Meteor.isServer
         match = {}
         match.tags = $all: selected_post_tags
         match.type = 'post'
-        if not @userId or not Roles.userIsInRole(@userId, ['admin'])
-            match.published = true
+        # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
+        #     match.published = true
         
     
         Docs.find match,

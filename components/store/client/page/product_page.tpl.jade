@@ -1,6 +1,6 @@
 with product
     .ui.container
-        a.ui.top.left.attached.basic.button(href="/products")
+        a.ui.top.left.attached.button(href="/products")
             i.arrow.left.icon
             |marketplace
         if image_id
@@ -10,20 +10,16 @@ with product
                 h1.ui.center.aligned.header #{title}
                 |!{content}
             .five.wide.column
-                .ui.horizontal.divider.header Price $#{price}
+                .ui.horizontal.divider.header price $#{price}
                 +add_to_cart
-                .ui.horizontal.divider.header Tags
+                .ui.horizontal.divider.header tags
                 each tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
                 +user_card
                 if can_edit
                     .ui.horizontal.divider.header 
                         i.red.configure.icon
-                        |Admin
-                    a.ui.basic.fluid.button(href="/product/edit/#{_id}")
+                        |admin
+                    a.ui.fluid.button(href="/edit/#{_id}")
                         i.pencil.icon
-                        |Edit
-                    if published
-                        .ui.green.fluid.label Published
-                    else
-                        .ui.red.fluid.label Unpublished
+                        |edit
