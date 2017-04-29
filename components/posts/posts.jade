@@ -41,6 +41,9 @@ template(name='post_item')
     | !{content}
     a.ui.icon.button(href="/post/view/#{_id}") 
         i.arrow.right.icon
+    if can_edit
+        a.ui.icon.button(href="/edit/#{_id}") 
+            i.pencil.icon
         
         
 template(name='edit_post')
@@ -59,8 +62,7 @@ template(name='edit_post')
                 // +featured
                 if tags
                     .ui.basic.center.aligned.segment
-                        #save_post.ui.huge.green.icon.button 
-                            i.check.icon
+                        #save_post.ui.huge.green.button save
                         +delete_button
 
 
@@ -79,11 +81,11 @@ template(name='post_page')
                         if publish_date
                             h4.ui.header Published #{publish_when}
                         |!{content}
-                    +user_card
                 .four.wide.column
                     .ui.dividing.header tags
                     each tags
                         .ui.label #{this}
+                    +user_card
                     if isInRole 'admin'
                         .ui.divider
                         i.large.red.configure.icon

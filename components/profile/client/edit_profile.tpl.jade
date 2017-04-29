@@ -15,7 +15,7 @@
             //     if profile.google_image
             //         label Google Image
             //         img.ui.small.image(src=profile.google_image)
-            //         #pick_google_image.ui.basic.button Make this Profile Image
+            //         #pick_google_image.ui.button Make this Profile Image
             .field
                 label Name
                 .ui.left.icon.input
@@ -51,9 +51,9 @@
             //         i.facebook.icon
             //         input#facebook(type='text' value=profile.facebook)
             .field
-                label Tags (anything to identify you with)
+                label tags
                 each tags
-                    .ui.basic.button.person_tag
+                    .ui.button.person_tag
                         i.minus.icon
                         |#{this}
                 .ui.left.icon.input
@@ -63,15 +63,6 @@
                 label Bio
                 textarea#bio(rows='5') #{bio}
             .field
-                if published
-                    #make_unpublished.ui.green.button
-                        i.toggle.on.icon
-                        |Published
-                else
-                    #make_published.ui.basic.button
-                        i.toggle.off.icon
-                        |Unpublished
-            .field
                 #save_profile.ui.fluid.green.button 
                     // i.check.icon
-                    |Save Profile
+                    |save
