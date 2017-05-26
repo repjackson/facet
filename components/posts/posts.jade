@@ -3,13 +3,13 @@ template(name='posts')
         if currentUser
             #add_post.ui.large.icon.button
                 i.plus.icon
-        +cloud filter='post'
+        +cloud
         .ui.hidden.divider
         .ui.centered.grid
             .ten.wide.column
                 each posts
                     +post_item
-
+                    .ui.divider
 
 template(name='post_card')
     .ui.fluid.card
@@ -44,6 +44,10 @@ template(name='post_item')
     if can_edit
         a.ui.icon.button(href="/edit/#{_id}") 
             i.pencil.icon
+    span #{when}
+    div
+        each tags
+            .ui.label #{this}
         
         
 template(name='edit_post')
@@ -85,7 +89,6 @@ template(name='post_page')
                     .ui.dividing.header tags
                     each tags
                         .ui.label #{this}
-                    +user_card
                     if isInRole 'admin'
                         .ui.divider
                         i.large.red.configure.icon

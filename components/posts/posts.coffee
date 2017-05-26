@@ -18,20 +18,16 @@ FlowRouter.route '/post/view/:doc_id', action: (params) ->
 
 if Meteor.isClient
     Template.posts.onCreated ->
-        @autorun -> Meteor.subscribe('selected_posts', selected_tags.array())
+        @autorun -> Meteor.subscribe('docs', selected_tags.array())
     
     
     Template.posts.helpers
         posts: -> 
-            Docs.find {
-                type: 'post'
-                },
-                limit: 1
+            Docs.find {}
                 
     Template.posts.events
         'click #add_post': ->
-            id = Docs.insert
-                type: 'post'
+            id = Docs.insert {}
             FlowRouter.go "/post/edit/#{id}"
     
     
@@ -97,6 +93,8 @@ if Meteor.isServer
         self = @
         match = {}
         match.tags = $all: selected_post_tags
+        if selected_tags.length > 0 then match.tags = $all: selected_tags
+
         match.type = 'post'
         # if not @userId or not Roles.userIsInRole(@userId, ['admin'])
         #     match.published = true

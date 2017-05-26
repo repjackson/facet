@@ -18,7 +18,7 @@
   "cloudinary_secret": "rPPXD3rZM_GCjODvh0T70XeDCSw",
   "galaxy.meteor.com": {
     "env": {
-      "MONGO_URL": "mongodb://facetadmin:Turnf34ragainst!@aws-us-east-1-portal.21.dblayer.com:10444/facet?ssl=true",
+      "MONGO_URL": "mongodb://facetadmin:Turnf34ragainst!@aws-us-east-1-portal.21.dblayer.com:10444/facetdb?ssl=true",
       "ROOT_URL": "https://www.facet.cloud"
     }
   }

@@ -1,7 +1,7 @@
 @selected_tags = new ReactiveArray []
 
 Template.cloud.onCreated ->
-    @autorun -> Meteor.subscribe('tags', selected_tags.array(), Template.currentData().filter)
+    @autorun -> Meteor.subscribe('tags', selected_tags.array())
 
 Template.cloud.helpers
     all_tags: ->
