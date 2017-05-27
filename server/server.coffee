@@ -1,28 +1,7 @@
-Meteor.users.allow
-    insert: (userId, doc) ->
-        # only admin can insert 
-        u = Meteor.users.findOne(_id: userId)
-        u and u.isAdmin
-    update: (userId, doc, fields, modifier) ->
-        # console.log 'user ' + userId + 'wants to modify doc' + doc._id
-        if userId and doc._id == userId
-            # console.log 'user allowed to modify own account!'
-            # user can modify own 
-            return true
-        # admin can modify any
-        u = Meteor.users.findOne(_id: userId)
-        u and 'admin' in u.roles
-    remove: (userId, doc) ->
-        # only admin can remove
-        u = Meteor.users.findOne(_id: userId)
-        u and 'admin' in u.roles
-
-
-
 Docs.allow
-    insert: (userId, doc) -> doc.author_id is userId
-    update: (userId, doc) -> doc.author_id is userId or Roles.userIsInRole(userId, 'admin')
-    remove: (userId, doc) -> doc.author_id is userId or Roles.userIsInRole(userId, 'admin')
+    insert: (userId, doc) -> userId
+    update: (userId, doc) -> doc.author_id is userId
+    remove: (userId, doc) -> doc.author_id is userId
 
 
 
@@ -31,19 +10,19 @@ Meteor.publish 'docs', (selected_tags)->
 
     self = @
     match = {}
-    if selected_tags.length > 0 then match.tags = $all: selected_tags
-    Docs.find match
+    match.tags = $all: selected_tags
+    Docs.find match,
+        sort: tag_count: 1
 
 Meteor.publish 'doc', (id)->
     Docs.find id
 
 
 
-Meteor.publish 'tags', (selected_tags, filter)->
+Meteor.publish 'tags', (selected_tags)->
     self = @
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
-    if filter then match.type = filter
 
     cloud = Docs.aggregate [
         { $match: match }
