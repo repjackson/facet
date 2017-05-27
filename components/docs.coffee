@@ -17,14 +17,17 @@ Meteor.methods
 
 if Meteor.isClient
     Template.docs.onCreated ->
-        @autorun -> Meteor.subscribe('docs', selected_tags.array())
+        @autorun -> Meteor.subscribe('docs', selected_tags.array(), Session.get('editing_id'))
 
     Template.docs.helpers
         docs: -> 
-            Docs.find { }, 
-                sort:
-                    tag_count: 1
-                limit: 1
+            if Session.get 'editing_id'
+                Docs.find Session.get('editing_id')
+            else    
+                Docs.find { }, 
+                    sort:
+                        tag_count: 1
+                    limit: 1
     
         tag_class: -> if @valueOf() in selected_tags.array() then 'active' else ''
 
@@ -45,7 +48,7 @@ if Meteor.isClient
     Template.docs.events
         'click #add': ->
             Meteor.call 'add', (err,id)->
-                FlowRouter.go "/edit/#{id}"
+                Session.set 'editing_id', id
 
 
     Template.edit.events
@@ -53,6 +56,8 @@ if Meteor.isClient
             Docs.update @_id,
                 $set: tag_count: @tags.length
             Session.set 'editing_id', null
+            selected_tags.clear()
+            selected_tags.push tag for tag in @tags 
             
             
         'click #delete': ->

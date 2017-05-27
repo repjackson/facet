@@ -6,13 +6,16 @@ Docs.allow
 
 
 
-Meteor.publish 'docs', (selected_tags)->
+Meteor.publish 'docs', (selected_tags, editing_id)->
 
-    self = @
-    match = {}
-    match.tags = $all: selected_tags
-    Docs.find match,
-        sort: tag_count: 1
+    if editing_id
+        Docs.find editing_id
+    else
+        self = @
+        match = {}
+        match.tags = $all: selected_tags
+        Docs.find match,
+            sort: tag_count: 1
 
 Meteor.publish 'doc', (id)->
     Docs.find id
