@@ -1,8 +1,9 @@
 template(name='docs')
     .ui.container
         +loginButtons
-        #add.ui.icon.button
-            i.plus.icon
+        if currentUser
+            #add.ui.icon.button
+                i.plus.icon
         +cloud
         each docs
             +view

@@ -1,3 +1,7 @@
+Accounts.ui.config
+    passwordSignupFields: 'USERNAME_ONLY'
+
+
 
 Template.tags.events
     'keydown #add_tag': (e,t)->
