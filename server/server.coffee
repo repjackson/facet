@@ -16,6 +16,7 @@ Meteor.publish 'docs', (selected_tags, editing_id)->
         match.tags = $all: selected_tags
         Docs.find match,
             sort: tag_count: 1
+            limit: 5
 
 Meteor.publish 'doc', (id)->
     Docs.find id
