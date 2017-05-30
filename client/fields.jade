@@ -1,16 +1,5 @@
 
 
-template(name='tags')
-    .field
-        label Tags
-        each tags
-            .ui.button.doc_tag
-                i.minus.icon
-                |#{this}
-        .ui.hidden.fitted.divider        
-        .ui.left.icon.four.wide.input
-            i.add.icon
-            input#add_tag(type='text' placeholder='Add Tag' maxlength='50')
 
 
 
@@ -19,8 +8,3 @@ template(name='content')
         label Content
         .froala-container
             +froalaReactive getFEContext
-    
-    
-template(name='delete_button')
-    #delete.ui.icon.red.button
-        i.remove.icon

@@ -3,27 +3,6 @@ Accounts.ui.config
 
 
 
-Template.tags.events
-    'keydown #add_tag': (e,t)->
-        if e.which is 13
-            tag = $('#add_tag').val().toLowerCase().trim()
-            if tag.length > 0
-                Docs.update @_id,
-                    $addToSet: tags: tag
-                    # $set: tag_count: @tags.length
-                $('#add_tag').val('')
-
-    'click .doc_tag': (e,t)->
-        tag = @valueOf()
-        Docs.update Template.currentData()._id,
-            $pull: tags: tag
-            # $set: tag_count: Template.currentData().tags.length
-        $('#add_tag').val(tag)
-
-
-
-            
-
 Template.content.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
@@ -80,7 +59,7 @@ Template.view.events
 
 Template.docs.events
     'click #add': ->
-        Meteor.call 'add', (err,id)->
+        Meteor.call 'add', selected_tags.array(), (err,id)->
             Session.set 'editing_id', id
     
     'keyup #quick_add': (e,t)->
@@ -98,6 +77,29 @@ Template.docs.events
 
 
 Template.edit.events
+    'keydown #add_tag': (e,t)->
+        if e.which is 13
+            tag = $('#add_tag').val().toLowerCase().trim()
+            if tag.length > 0
+                Docs.update @_id,
+                    $addToSet: tags: tag
+                $('#add_tag').val('')
+            else
+                Docs.update @_id,
+                    $set: tag_count: @tags.length
+                Session.set 'editing_id', null
+                selected_tags.clear()
+                selected_tags.push tag for tag in @tags 
+
+
+    'click .doc_tag': (e,t)->
+        tag = @valueOf()
+        Docs.update @_id,
+            $pull: tags: tag
+        $('#add_tag').val(tag)
+        
+        
+        
     'click .save': ->
         Docs.update @_id,
             $set: tag_count: @tags.length
