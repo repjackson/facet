@@ -1,0 +1,33 @@
+template(name='doc_image')
+    if doc
+        with doc
+            if is_editing
+                .ui.form
+                    if image_id
+                        .field
+                            label Image
+                            .ui.large.image
+                                img(src="{{c.url image_id width=500 crop='fit'}}")
+                                a#remove_photo.ui.top.left.attached.link.basic.label Remove
+                                .ui.bottom.right.attached.basic.label Image Id: #{image_id}
+                    else
+                        .fields
+                            .field
+                                label Upload Image
+                                input(type='file' name='upload_picture' accept='image/*')
+                            if isInRole 'admin'
+                                .field
+                                    label or Choose Cloudinary Image Id
+                                    input#input_image_id(type='text')
+            else
+                img.ui.image(src="{{c.url image_id }}" class=doc_classes)
+                // i.edit_content.pencil.link.icon(title=tags)
+            if isInRole 'admin'
+                +session_edit_button
+    else
+        if isInRole 'admin'
+            .ui.header No Doc Found
+            .create_doc.ui.basic.button
+                i.plus.icon
+                |Create HTML with #{template_tags}
+            

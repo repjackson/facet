@@ -1,0 +1,62 @@
+template(name='ballot')
+    .ui.container
+        h2.ui.center.aligned.header ballot
+        .ui.inverted.four.item.stackable.pointing.menu
+            a#set_mode_to_all.item(class=all_item_class) 
+                |All
+            a#select_unvoted.item(class=unvoted_item_class) 
+                |Unvoted
+            a#toggle_voted_up.item(class=voted_up_class) 
+                i.thumbs.up.icon
+                |Voted Up (#{voted_up_ballot_count})
+            a#toggle_voted_down.item(class=voted_down_class) 
+                i.thumbs.down.icon
+                |Voted Down (#{voted_down_ballot_count})
+
+        #cloud.ui.basic.segment.container
+            if selected_ballot_tags
+                #add_ballot_doc.ui.circular.icon.button
+                    i.plus.icon
+            else
+                #add_ballot_doc.ui.basic.circular.icon.button
+                    i.plus.icon
+            // .ui.left.icon.large.input
+            //     i.search.icon
+            //     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
+            if selected_ballot_tags
+                #clear_tags.ui.active.icon.large.button
+                    i.remove.icon
+                each selected_ballot_tags
+                    .unselect_tag.ui.active.large.button
+                        strong #{this}
+            each ballot_tags
+                .ui.button.select_tag(class=cloud_tag_class) 
+                    | #{this.name}
+                    // | #{this.index}
+                    small #{this.count}
+            .ui.hidden.divider
+            .ui.centered.cards
+                each ballot_docs
+                    +ballot_doc_view
+
+
+template(name='ballot_doc_view')
+    .ui.card(class=ballot_card_class)
+        .content
+            if is_editing
+                .ui.container.basic.segment
+                    .ui.center.aligned.header Edit ballot Doc
+                    .ui.form
+                        +tags
+                    .ui.hidden.divider
+                    .ui.center.aligned.basic.segment
+                        +session_edit_button
+                        +delete_button
+            else
+                .header
+                    each tags
+                        .ui.big.basic.label(class=ballot_tag_class) #{this}
+                    .ui.center.aligned.basic.segment
+                        +big_both_voter
+            if can_edit
+                +session_edit_button

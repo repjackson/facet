@@ -1,0 +1,91 @@
+template(name='cart')
+    .ui.container
+        |{{> ensureSignedIn template="cart_checkout"}}
+
+
+template(name='cart_checkout')
+    // .ui.ordered.steps
+    //     .active.step
+    //         .content
+    //             .title Checkout
+    //     .step
+    //         .content
+    //             .title Profile Information
+    h2.ui.header Confirm Order
+    // with cart_item
+    //     .ui.segment
+    //         .ui.centered.grid
+    //             .three.wide.column
+    //                 img.ui.fluid.image(src="{{c.url image_id }}")
+    //             .six.wide.column
+    //                 h2.ui.header #{title}
+    //                 // .meta
+    //                 //     if price
+    //                 //         span $#{price}
+    //                 //     else
+    //                 //         .ui.basic.green.label Free
+    //                 .description #{subtitle}
+    //             .seven.wide.column
+    //                 a.buy_course.ui.teal.big.button
+    //                     |Buy #{title} for $#{price}
+    // .ui.hidden.divider
+    if total_items
+        table.ui.table
+            thead
+                tr
+                    th 
+                    th Title
+                    th Price
+                    // th Amount
+                    th Actions
+            tbody
+                each cart_items
+                    tr
+                        td 
+                            img.ui.small.image(src="{{c.url parent_doc.image_id}}")
+                        td 
+                            a.ui.header(href="product/#{parent_doc._id}/view") 
+                                |#{parent_doc.title}
+                            each parent_doc.tags
+                                .ui.small.basic.label #{this}
+                        td 
+                            |$#{parent_doc.price}
+                        // td
+                        //     +number
+                        //     #increase_amount.ui.basic.icon.button
+                        //         i.plus.icon
+                        //     |#{number}
+                        //     #decrease_amount.ui.basic.icon.button
+                        //         i.minus.icon
+                        td 
+                            .purchase_item.ui.teal.button 
+                                i.check.icon
+                                | Purchase
+                            +delete_button
+            // tfoot
+            //     tr
+            //         th 
+            //         th 
+            //         th
+            //         th Subtotal (#{total_items} items): $#{subtotal}
+    else
+        .ui.message
+            .header 
+                |No shopping cart items
+            p 
+                |Checkout our 
+                a(href='/service') Services
+                |section to add some.
+
+
+template(name='cart_profile')
+    .ui.text.container
+        .ui.ordered.steps
+            .completed.step
+                .content
+                    .title Checkout
+            .active.step
+                .content
+                    .title Profile Information
+    +edit_profile
+

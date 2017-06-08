@@ -13,13 +13,110 @@ head
 
 
 
-body
-    +docs
+// body
+//     +docs
 
-
-
-
-
+template(name='layout')
+    // if isInRole 'dev'
+    //     .ui.black.big.launch.right.attached.fixed.button
+    //         i.content.icon
+    //         span.text Menu
+    .context.example
+        +nav
+        // .ui.top.attached.demo.menu
+        //     a.item
+        //         i.sidebar.icon
+        //         |     Menu
+        .ui.bottom.attached.basic.segment.pushable
+            +sidebar
+            .pusher
+                #main_area
+                    .ui.basic.fluid.segment
+                        +Template.dynamic template=sub_nav
+                        +Template.dynamic template=sub_sub_nav
+                        +Template.dynamic template=cloud
+                        +Template.dynamic template=main
+                        // unless isInRole 'dev'
+                        //     +footer
+                    // else
+                            // +dev_footer
+template(name='sidebar')
+    .ui.left.inline.vertical.thin.visible.sidebar.inverted.fixed.menu
+        a.toggle_sidebar.item
+            // i.home.icon
+            img(src='/android-icon-192x192.png' style="width:50px;height:50px;")
+            // |       Home
+        a.toggle_sidebar.item(href='/about' class="{{isActivePath '/about'}}") 
+            i.info.icon
+            |About
+        a.toggle_sidebar.item(href='/courses' class="{{isActivePath '/courses'}}")
+            i.university.icon
+            |       Courses
+        a.toggle_sidebar.item(href='/people' class="{{isActivePath '/people'}}")
+            i.smile.icon
+            | People
+        a.toggle_sidebar.item(href='/lightbank' class="{{isActivePath '/lightbank'}}")
+            i.sun.icon
+            | Lightbank
+        a.toggle_sidebar.item(href='/contact' class="{{isActivePath '/contact'}}") 
+            i.call.icon
+            |Contact
+        if currentUser
+            if isInRole 'admin'
+                a.toggle_sidebar.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                    i.configure.icon
+                    | Admin
+            a.toggle_sidebar.item(href="/dashboard" class="{{isActivePath '/dashboard'}}")
+                if currentUser.profile.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                else
+                    i.user.icon
+                if currentUser.name
+                    | #{currentUser.name}
+                else
+                    | #{currentUser.username}
+            a#logout.ui.item(href='#')
+                i.sign.out.icon
+                | Sign Out
+        else
+            a.ui.item(href='/sign-in') 
+                i.sign.in.icon
+                | Sign In
                     
-template(name='tag_result')
-    .ui.small.compact.button #{name}
+
+
+template(name="tag_result")
+    .ui.large.basic.label #{name}
+
+template(name='not_found')
+    .ui.text.container
+        .ui.center.aligned.header Not Found
+        // h5.ui.center.aligned.header Those responsible have been sacked.
+        
+        
+// template(name='staus_indicator')
+//     .ui.label(class='{{labelClass}}') 
+//         if online 
+//             |Online
+//         else if idle
+//             |Idle
+//         else 
+//             |Offline
+
+
+template(name='user_list_item')
+    .item
+        img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
+        .content
+            .header
+                |#{name}
+            .description
+                +tiny_color_dots
+                each five_tags
+                    .ui.basic.label #{this}
+
+
+template(name='footer')
+    .footer.ui.basic.fluid.inverted.center.aligned.segment
+        .ui.header
+            i.creative.commons.icon

@@ -54,3 +54,19 @@ notes
     
     
 maintain frame
+
+
+todo
+    events
+        
+    calendar view
+    map view
+    list view
+    grid view
+    reddit clone
+    stackoverflow clone
+    
+    
+objective
+    sell examples of what is posisble
+    inspire awe

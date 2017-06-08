@@ -1,0 +1,33 @@
+template(name='transactions')
+    .ui.container
+        .ui.dividing.header Transactions
+        table.ui.selectable.unstackable.table
+                thead
+                    tr
+                        th 
+                        th Title
+                        th Sale Price
+                        th When
+                        // th Actions
+                tbody
+                    each transactions
+                        tr
+                            td.collapsing 
+                                img.ui.small.image(src="{{c.url parent_doc.image_id}}")
+                            td 
+                                a.ui.header(href="#{parent_doc.type} /#{parent_doc._id}/view") 
+                                    |#{parent_doc.title}
+                                each parent_doc.tags
+                                    .ui.small.basic.label #{this}
+                            td 
+                                |$#{parent_doc.price}
+                            td
+                                |#{when}
+                            // td 
+                            //     .ui.disabled.button Download Invoice
+                // tfoot
+                //     tr
+                //         th 
+                //         th 
+                //         th
+                //         th Subtotal (#{total_items} items): $#{subtotal}

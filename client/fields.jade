@@ -1,10 +1,112 @@
+template(name='start_end_time')
+    .fields
+        .field
+            label Start Date/Time
+            .ui.left.icon.input
+                i.calendar.icon
+                input#start_datetime(type='datetime-local' value=start_datetime)
+        .field
+            label End Date/Time
+            .ui.left.icon.input
+                i.calendar.icon
+                input#end_datetime(type='datetime-local' value=end_datetime)
 
 
+template(name='title')
+    .field
+        label Title
+        input#title(type='text' value=title)
+
+template(name='subtitle')
+    .field
+        label Subtitle
+        input#subtitle(type='text' value=subtitle)
+
+template(name='plain')
+    .field
+        input#plain(type='text' value=plain)
 
 
+template(name='slug')
+    .field
+        label Slug
+        input#slug(type='text' value=slug placeholder='computer readable name, no spaces, caps or punctuation')
+
+template(name='number')
+    .field
+        label Number
+        input#number(type='number' min='0' value=number)
+
+
+template(name='tags')
+    .field
+        label Tags
+        input#add_tag(type='text' placeholder='Add Tag' maxlength='50' autofocus='')
+    each tags
+        a.ui.tag.label.doc_tag
+            i.minus.icon
+            |#{this}
+
+
+template(name='price')
+    .field
+        label Price in $
+        input#price(type='number' min='0' value=price)
+
+
+template(name='link')
+    .field
+        label Link (include http://)
+        .ui.left.icon.input
+            i.linkify.icon
+            input#link(type='text' value=link)
+
+
+template(name='page_name')
+    .field
+        label Page Name
+        .ui.input
+            input#name(type='text' value=name)
+
+
+template(name='type')
+    .ui.labeled.input
+        label 
+            i.red.configure.icon
+            |Type
+        .ui.input
+            input#type(type='text' value=type)
+
+template(name='location')
+    .field
+        label Location
+        .ui.left.icon.input
+            i.compass.icon
+            input#location(type='text' value=location)
 
 template(name='content')
     .field
-        label Content
+        // label Content
         .froala-container
             +froalaReactive getFEContext
+    
+    
+template(name='image')
+    .ui.form
+        if image_id
+            .field
+                label Image
+                .ui.large.image
+                    img(src="{{c.url image_id width=500 crop='fit'}}")
+                    a#remove_photo.ui.top.left.attached.link.blue.label Remove
+                    .ui.bottom.right.attached.blue.label Image Id: #{image_id}
+        else
+            .fields
+                .field
+                    label Upload Image
+                    input(type='file' name='upload_picture' accept='image/*')
+                if isInRole 'admin'
+                    .field
+                        label or Choose Cloudinary Image Id
+                        input#input_image_id(type='text')
+    

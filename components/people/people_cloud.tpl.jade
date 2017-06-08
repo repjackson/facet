@@ -1,0 +1,13 @@
+#cloud.ui.basic.segment.center.aligned.container
+    +doc_content tags='people cloud,blurb'
+    .ui.hidden.divider
+    if selected_people_tags
+        #clear_tags.ui.teal.circular.icon.big.button
+            i.remove.icon
+        each selected_people_tags
+            .unselect_tag.ui.circular.teal.big.button
+                strong #{this}
+    each all_people_tags
+        .ui.circular.basic.button.select_tag(class=cloud_tag_class) #{this.name}
+                // small #{this.count}
+                // small [#{this.index}]

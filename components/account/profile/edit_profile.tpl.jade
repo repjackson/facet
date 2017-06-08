@@ -1,0 +1,83 @@
+.ui.basic.segment.container
+    with user
+        h1.ui.center.aligned.header Edit #{username} Profile
+        .ui.large.form
+            .ui.stackable.grid
+                .five.wide.column    
+                    .field
+                        // .field
+                        //     label Current image_id: #{image_id}
+                        //     input#input_image_id(type='text' placeholder='Change')
+                        if profile.image_id
+                            label Image
+                            .ui.centered.image
+                                img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                a#remove_photo.ui.right.corner.link.label
+                                    i.remove.red.link.icon
+                        else
+                            label Add Profile Image
+                            input(type='file' name='upload_picture' accept='image/*')
+                .ten.wide.column    
+                    if enrolling_in_demo
+                        h4.ui.orange.header Thanks for registering! Please finish creating your profile below before continuing on to the course.
+                    .field
+                        label First Name 
+                        .ui.input
+                            input#first_name(type='text' value=profile.first_name)
+                    .field
+                        label Last Name 
+                        .ui.input
+                            input#last_name(type='text' value=profile.last_name)
+                    .field
+                        label Email
+                        each emails
+                            .ui.basic.label #{address}
+                            if verified
+                                .ui.basic.green.label Verified
+                            else
+                                .ui.basic.label Unverified
+                    .field
+                        label Location 
+                        .ui.input
+                            input#location(type='text' value=profile.location)
+                    .field
+                        label Tags (please select a few key words that embody yourself, interests, etc.)
+                        each tags
+                            .ui.basic.circular.button.person_tag
+                                i.minus.icon
+                                |#{this}
+                        .ui.left.icon.input
+                            i.add.icon
+                            input#add_tag(type='text' placeholder='Press enter after each tag' maxlength='50')
+                    .field
+                        label About Me 
+                        .ui.input
+                            textarea#about_me(type='textarea' maxlength="250" rows='3')
+                                |#{profile.about_me}
+                    .ui.divider
+                    .field
+                        if profile.published
+                            #unpublish.ui.basic.icon.green.button
+                                i.toggle.on.icon
+                        else
+                            #publish.ui.basic.icon.button
+                                i.toggle.off.icon
+                        if profile.published
+                            .ui.basic.label Published in Member Portal
+                        else
+                            .ui.basic.label Not Published in Member Portal
+                    // .ui.segment
+                    //     +atForm
+        .ui.basic.segment.container
+            .ui.dividing.header Settings
+            // .ui.form
+            //     .field
+            //         label Subscribe to Newsletter
+                    
+            .ui.slider.checkbox
+                input#newsletter(type='checkbox' checked=user.profile.subscribe)
+                label(for='newsletter') Subscribe to Newsletter
+        .field
+                .ui.center.aligned.basic.segment
+                    #save_profile.ui.center.aligned.huge.teal.button
+                        |Save

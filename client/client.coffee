@@ -1,30 +1,36 @@
-Accounts.ui.config
-    passwordSignupFields: 'USERNAME_ONLY'
+Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id
+Template.registerHelper 'is_user', () ->  Meteor.userId() is @_id
+
+Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
+
+Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
+
+        
+Template.registerHelper 'segment_class', () -> 
+    if Roles.userIsInRole 'admin'
+        if @published then 'raised blue' else ''
+    else
+        ''
+Template.registerHelper 'ribbon_class', () -> if @published then 'blue' else 'basic'
+
+Template.registerHelper 'from_now', () -> moment(@timestamp).fromNow()
+
+Template.registerHelper 'long_date', () -> moment(@timestamp).format("dddd, MMMM Do, h:mm a")
+# Template.registerHelper 'long_date', () -> moment(@timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
 
 
+Template.registerHelper 'in_course', () -> @_id in Meteor.user().courses
+Template.registerHelper 'in_sol', () -> Roles.userIsInRole 'sol_member'
+Template.registerHelper 'in_demo', () -> Roles.userIsInRole 'sol_demo_member'
 
-Template.content.events
-    'blur .froala-container': (e,t)->
-        html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
 
-        Docs.update @_id,
-            $set: content: html
-                
+Template.registerHelper 'is_editing', () -> 
+    # console.log 'this', @
+    Session.equals 'editing_id', @_id
 
-Template.content.helpers
-    getFEContext: ->
-        @current_doc = Docs.findOne @_id
-        self = @
-        {
-            _value: self.content
-            _keepMarkers: true
-            _className: 'froala-reactive-meteorized-override'
-            toolbarInline: false
-            initOnClick: false
-            imageInsertButtons: ['imageBack', '|', 'imageByURL']
-            tabSpaces: false
-            height: 300
-        }
+
+Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
+
 
 Template.docs.onCreated ->
     @autorun -> Meteor.subscribe('docs', selected_tags.array(), Session.get('editing_id'))
@@ -94,7 +100,7 @@ Template.edit.events
 
     'click .doc_tag': (e,t)->
         tag = @valueOf()
-        Docs.update @_id,
+        Docs.update Template.currentData()._id,
             $pull: tags: tag
         $('#add_tag').val(tag)
         
@@ -123,4 +129,8 @@ Template.edit.events
         }, ->
             Docs.remove self._id
             Session.set 'editing_id', null
+        
+        
+        
+        
         

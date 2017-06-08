@@ -1,0 +1,95 @@
+template(name='doc_content')
+    if doc
+        with doc
+            if editing
+                +edit_content
+            else
+                span(class=doc_classes)
+                    |!{content}
+            if isInRole 'admin'
+                unless editing
+                    .edit_this.ui.basic.small.icon.button(title=tags)
+                        i.red.pencil.icon
+                        // |Edit #{tags} Content
+                else
+                    .save_doc.ui.green.basic.button
+                        i.check.icon
+                        |Save Content
+    else
+        if isInRole 'admin'
+            .ui.header No Content Found
+            .create_doc.ui.basic.button
+                i.plus.icon
+                |Create Content with #{template_tags}
+            
+template(name='doc_body')
+    if subscriptionsReady
+        if doc
+            with doc
+                if editing
+                    +edit_body
+                else
+                    span(class=doc_classes)
+                        |#{body}
+                if isInRole 'admin'
+                    unless editing
+                        i.edit_this.large.pencil.link.icon(title=tags)
+                    else
+                        .save_doc.ui.icon.green.basic.button
+                            i.check.icon
+        else
+            if isInRole 'admin'
+                .ui.header No Doc Found
+                .create_doc.ui.basic.button
+                    i.plus.icon
+                    |Create Plain with #{template_tags}
+    else
+        .ui.text.loader
+            
+template(name='edit_content')
+    .ui.segment
+        .ui.form
+            .field
+                each tags
+                    .ui.basic.label #{this}
+            .field
+                // label Content
+                .froala-container
+                    +froalaReactive edit_doc_context
+
+
+template(name='edit_body')
+    .ui.segment
+        .ui.form
+            .field
+                each tags
+                    .ui.basic.label #{this}
+            .field
+                // label Body
+                input#body(type='text' value=body)
+                
+template(name='edit_body_field')
+    if is_editing
+        .ui.form
+            .field
+                input#body(type='text' value=body)
+            +session_edit_button
+            +delete_button
+    else
+        h4 #{body}
+        if isInRole 'admin'
+            +session_edit_button
+
+
+template(name='edit_parentid_field')
+    if is_editing
+        .ui.form
+            .field
+                label parent id
+                input#parent_id(type='text' value=parent_id)
+            +session_edit_button
+            +delete_button
+    else
+        h4 parent id: #{parent_id}
+        if isInRole 'admin'
+            +session_edit_button

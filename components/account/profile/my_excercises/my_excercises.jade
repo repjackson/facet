@@ -1,0 +1,6 @@
+template(name='my_excercises')
+    .ui.dividing.header My Excercises
+    .ui.list
+        each my_excercises
+            .item
+                a.ui.header(href="/course/#{_id}") #{title}

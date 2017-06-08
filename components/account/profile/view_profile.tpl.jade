@@ -1,0 +1,63 @@
+.ui.container
+    with person
+        .ui.breadcrumb
+            a.section(href='/') Home
+            .divider  / 
+            a.section(href='/people') People
+            .divider  / 
+            .active.section #{username}
+        .ui.hidden.divider    
+        .ui.stackable.grid
+            .five.wide.column
+                img.ui.centered.rounded.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+                .ui.basic.center.aligned.segment
+                    if is_user
+                        a.ui.basic.fluid.button(href="/account/profile/edit/#{_id}") Edit My Profile
+                    else
+                        +toggle_friend
+                    // .ui.hidden.divider
+                    // +staus_indicator
+                    .ui.hidden.divider
+                    if points
+                        .ui.small.teal.statistic
+                            .value #{points}
+                            .label Comment Karma
+                    // if isInRole 'dev'
+                    //     +tag_person this    
+                    
+            .ten.wide.column
+                if profile.first_name
+                    h2.ui.center.aligned.header
+                        |#{profile.first_name} #{profile.last_name}
+                else
+                    .ui.center.aligned.sub.header #{username}
+                if tags
+                    .ui.basic.center.aligned.segment
+                        each tags
+                            .user_tag.ui.circular.basic.label #{this}
+                if isInRole 'dev'
+                    .ui.pointing.five.item.stackable.menu
+                        .item About
+                        .item Courses
+                        .item Quizes
+                        .item Social
+                        .item Contact
+                if profile.location
+                    .ui.header Location 
+                    | #{profile.location}
+                if profile.about_me
+                    .ui.header About Me
+                    |#{profile.about_me}
+                // +user_courses
+                // if is_user
+                //     +my_friends
+                // if isInRole 'dev'
+                //     +user_docs
+                // if isInRole 'beta'
+                //     .ui.horizontal.divider.header
+                //         i.red.configure.icon
+                //         |Admin
+                //     +messages_with_user
+                //     if is_user
+                //         +clouds
+                // +public_quiz_sessions

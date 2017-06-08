@@ -1,0 +1,25 @@
+template(name='featured_events')
+    h2.impact-header Featured Events
+    .ui.four.stackable.centered.cards
+        each featured_events
+            +event_card
+              
+          
+          
+template(name='featured_event')
+    .ui.fluid.card
+        .image
+            a
+                img.ui.medium.image.featured_event_title(src="{{c.url image_id}}")
+        .content
+            .header
+                // a(href="/event/view/#{this._id}")
+                a
+                    h2.ui.header.featured_event_title #{title}
+            .description
+                // .ui.header Event Topics:
+                strong #{day} 
+                |from
+                strong #{start_time} 
+                |to 
+                strong #{end_time}

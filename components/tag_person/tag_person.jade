@@ -1,0 +1,36 @@
+template(name='tag_person')
+    if is_person
+        each person_tags
+            .ui.basic.label #{this}
+    .ui.list
+        each ratings
+            .item
+                img.ui.avatar.image(src="{{c.url author.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                .content
+                    a.header(href="/account/profile/#{author._id}")
+                        if profile.name 
+                            |#{author.profile.name}
+                        else
+                            |#{author.username}
+                    .description
+                        each tags
+                            .ui.small.basic.label #{this}
+    if currentUser
+        .ui.dividing.header Tag Person
+        if my_person_tags
+            .ui.dividing.header My Tags
+            with my_tags
+                unless is_editing
+                    each tags
+                        .ui.small.basic.label #{this}
+                    .ui.hidden.divider
+                    +edit_button
+                    +delete_button
+                else
+                    +tags
+                    +edit_button
+        else
+            #add_rating.ui.basic.button
+                i.plus.icon
+                |Add Tags
+        div #{person.name} can only see your tags

@@ -1,7 +1,17 @@
 {
   "public": {
+    "stripe": {
+        "testPublishableKey": "pk_test_EeQ9GTKynLzNMq5hiTCkg3Ec",
+        "livePublishableKey": "pk_live_I5XDcgYoZQHko5epFyMr5IWT"
+      },
     "analyticsSettings": {
       "Google Analytics" : {"trackingId": "UA-93991317-1"}
+    }
+  },
+  "private": {
+    "stripe": {
+      "testSecretKey": "sk_test_VmLHoYbhDWLPgrVp5GoTd0AR",
+      "liveSecretKey": "sk_live_f0QHHkiCuftpYG49819oyrFr"
     }
   },
   "galaxy.meteor.com": {

@@ -1,0 +1,89 @@
+template(name='quiz_session')
+    .ui.container
+        .ui.breadcrumb
+            a.section(href='/') Home
+            .divider  / 
+            // a.section(href='/courses') Inspire U
+            // .divider  / 
+            a.section(href="/quizes") Quizes
+            .divider  / 
+            a.section(href="/quiz/#{quiz.slug}/view") #{quiz.title}
+            .divider  / 
+            .active.section Session
+
+        h1.ui.dividing.center.aligned.header #{quiz.title}
+        unless quiz_session.results
+            // .ui.header Question Filter:
+            // if selected_quiz_question_tags
+            //     #clear_tags.ui.teal.icon.large.button
+            //         i.remove.icon
+            //     each selected_quiz_question_tags
+            //         .unselect_tag.ui.teal.large.button
+            //             strong #{this}
+            // each quiz_cloud_tags
+            //     .ui.basic.button.select_tag(class=cloud_tag_class) 
+            //         | #{this.name}
+            //         small #{this.count}
+            .ui.dividing.header Unanswered Questions
+            .ui.stackable.cards
+                each unanswered_questions
+                    +quiz_question
+            .ui.hidden.divider
+            .ui.styled.fluid.accordion
+                h2.title
+                    i.dropdown.icon
+                    |Answered Questions
+                .content
+                    .ui.stackable.cards
+                        each answered_questions
+                            +quiz_question
+            if all_answered
+                .ui.hidden.divider
+                #calculate_answers.ui.teal.labeled.icon.button 
+                    i.calculator.icon
+                    |Calculate Answers
+            .ui.hidden.divider
+            #delete_session.ui.red.labeled.icon.button 
+                i.ban.icon
+                |Cancel Session
+        with quiz_session
+            if results
+                if is_author
+                    #delete_results.ui.red.labeled.icon.button 
+                        i.delete.icon
+                        |Delete Results
+                    div
+                        if published
+                            .ui.header These results WILL be shown on your profile.
+                        else
+                            .ui.header These results will NOT be shown on your profile.
+                    +published
+                else
+                    +user_blurb
+                +results
+                .ui.hidden.divider
+                a.ui.teal.labeled.icon.button(href="/quiz/#{quiz.slug}/view") 
+                    i.reply.icon
+                    | Back to #{quiz.title} Dashboard
+        
+            
+            
+template(name='results')
+    with quiz_session
+        .ui.dividing.header Results
+        each sorted_results
+            // .ui.header Category #{category}
+            // .ui.header Score #{category_score}
+            .ui.progress(data-percent=category_percent class=progress_class)
+                .bar
+                .progress
+                .label #{category}
+
+            
+            
+template(name='quiz_question')
+    .ui.card
+        .content
+            .header #{title}
+            .ui.basic.center.aligned.segment
+                +rating

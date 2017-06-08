@@ -1,5 +1,17 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
+@People_tags = new Meteor.Collection 'people_tags'
+
+
+Docs.before.insert (userId, doc)->
+    doc.timestamp = Date.now()
+    doc.author_id = Meteor.userId()
+    doc.tag_count = doc.tags?.length
+    doc.points = 0
+    doc.upvoters = []
+    doc.downvoters = []
+    doc.published = false
+    return
 
 
 Docs.helpers

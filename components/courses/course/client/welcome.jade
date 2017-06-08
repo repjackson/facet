@@ -1,0 +1,177 @@
+template(name='course_welcome')
+    #course_welcome_menu.ui.top.attached.tabular.stackable.menu
+        a.active.item(data-tab="welcome_tab") Welcome
+        a.item(data-tab="terms_tab") Terms of Agreement
+        a.item(data-tab="inspiration_tab") What Inspired SOL
+    .ui.bottom.attached.tab.active.segment(data-tab='welcome_tab')
+        +view_welcome_course
+    .ui.bottom.attached.tab.segment(data-tab='terms_tab')
+        +view_terms_course
+    .ui.bottom.attached.tab.segment(data-tab='inspiration_tab')
+        +view_inspiration_course
+            
+        
+template(name='view_welcome_course')
+    +doc_content tags='sol,welcome,content'
+    .ui.styled.fluid.accordion
+        h3.title
+            i.large.newspaper.icon
+            | Transcript
+        .content
+            +doc_content tags='sol,welcome,transcript'
+    
+    
+    
+
+template(name='view_terms_course')
+    +doc_content tags='sol,welcome,terms,instructions'
+    p(dir='ltr')
+        strong Student Commitment Agreement 
+        span
+            br
+        br
+        span I, 
+        unless has_agreed
+            span ______________
+        else 
+            strong #{currentUser.name},
+        |  understand the purpose and intention behind Source of Light.
+        span
+            | As student of this online course, I agree to complete the modules to the best of my ability. I understand that I will only get out what I put into this program; that Tori cannot change my life for me, it is up to me to implement, practice, and reflect on her teachings.
+    p(dir='ltr')
+        span
+            em I hereby agree to the following:
+    ul
+        li(dir='ltr')
+            p(dir='ltr') To remain open to new concepts and ideas
+        li(dir='ltr')
+            p(dir='ltr')
+                span To do my best
+        li(dir='ltr')
+            p(dir='ltr') To be honest with myself
+        li(dir='ltr')
+            p(dir='ltr')
+                span To understand that change takes time
+        li(dir='ltr')
+            p(dir='ltr') To reach out for help if I am in need
+        li(dir='ltr')
+            p(dir='ltr')
+                span To accept responses and feedback from Tori
+        li(dir='ltr')
+            p(dir='ltr') To have transparent and open communication with Tori
+        li(dir='ltr')
+            p(dir='ltr')
+                span
+                    | To offer Tori feedback and constructive criticism on the course (flow, presentation, etc.)
+        li(dir='ltr')
+            p(dir='ltr') Will not discount this commitment
+    p(dir='ltr')
+        span  
+    p(dir='ltr')
+        span Signed: 
+        unless has_agreed
+            span _____________________________
+        else 
+            strong #{currentUser.name}
+    p(dir='ltr')
+        span Date: 
+        unless has_agreed
+            |_______________
+        else
+            strong #{agreed_date}
+
+    p(dir='ltr')
+        br
+    hr
+    p(dir='ltr')
+        br
+    p(dir='ltr')
+        strong SOL Community Commitment Agreement 
+        span
+            br
+        br
+        span I,         
+        unless has_agreed
+            span ______________
+        else 
+            strong #{currentUser.name},
+        |  understand the purpose and intention behind Source of Light.
+        span
+            | As student of this online course, I agree to participate in the community in a way that serves myself and others. I understand that other individuals have their own perspectives, values, and life experiences, therefore I will not judge them what they have to share.
+    p(dir='ltr')
+        span
+            em I hereby agree to the following:
+    ul
+        li(dir='ltr')
+            p(dir='ltr') To remain open to new concepts and ideas
+        li(dir='ltr')
+            p(dir='ltr')
+                span To listen and support each other
+        li(dir='ltr')
+            p(dir='ltr') To respect each other’s opinions within the SOL Community
+        li(dir='ltr')
+            p(dir='ltr')
+                span To accept wisdom and perspective from others within the community
+        li(dir='ltr')
+            p(dir='ltr')
+                span
+                    | To offer wisdom and perspective from others within the community when I feel is necessary
+        li(dir='ltr')
+            p(dir='ltr') To be mindful of how to speak to others and the power of my words 
+        li(dir='ltr')
+            p(dir='ltr')
+                span To be honest
+        li(dir='ltr')
+            p(dir='ltr') To be authentic 
+        li(dir='ltr')
+            p(dir='ltr')
+                span
+                    | To report any inappropriate treatment and/or behavior within the community to Tori
+        li(dir='ltr')
+            p(dir='ltr') Will not discount this commitment
+    p(dir='ltr')
+        span  
+    p(dir='ltr')
+        span Signed: 
+        unless has_agreed
+            span _____________________________
+        else 
+            strong.signature #{currentUser.name}
+    p(dir='ltr')
+        span Date: 
+        unless has_agreed
+            span _______________
+        else
+            strong #{agreed_date}
+    p(dir='ltr')
+        br
+
+    if has_agreed
+        if isInRole 'admin'
+            #remove_agreement.ui.basic.red.button Remove Agreement
+    else
+        #agree_to_terms.ui.green.fluid.button Agree to Terms
+    if isInRole 'admin'
+        .ui.horizontal.divider.header
+            i.red.configure.icon
+            |Admin
+        .ui.header Signers:
+        .ui.divided.list
+            each agreements
+                .item
+                    .content
+                        .header 
+                            with user_object
+                                +user_list_item
+                        .description #{date_signed}
+
+
+template(name='view_inspiration_course')
+    +doc_content tags='sol,inspiration,content'
+    .ui.styled.fluid.accordion
+        h3.title
+            i.large.newspaper.icon
+            | Transcript
+        .content
+            +doc_content tags='sol,inspiration,transcript'
+
