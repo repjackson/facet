@@ -23,18 +23,27 @@ publishComposite 'doc', (id)->
         find: ->
             Docs.find id
         children: [
-            find: (doc)->
-                Meteor.users.find
-                    _id: doc.author_id
-            ]
+            {
+                find: (doc)->
+                    Meteor.users.find
+                        _id: doc.author_id
+            }
+            {
+                find: (doc)->
+                    Meteor.users.find
+                        _id: $in: doc.attached_users
+            }
+        ]
     }
 
 
 
-Meteor.publish 'tags', (selected_tags)->
+Meteor.publish 'tags', (selected_tags, filter)->
     self = @
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
+    if filter then match.type = filter
+
 
     cloud = Docs.aggregate [
         { $match: match }

@@ -3,6 +3,11 @@ Template.edit_event.onCreated ->
     self.autorun ->
         self.subscribe 'doc', FlowRouter.getParam('doc_id')
 
+FlowRouter.route '/event/edit/:doc_id', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'edit_event'
+
+
 
 Template.edit_event.helpers
     event: ->

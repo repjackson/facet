@@ -1,5 +1,8 @@
 with event
     .ui.container
+        a.ui.button(href='/events')
+            i.left.arrow.icon
+            |events
         .header-wrapper
             if image_id
                 img.ui.centered.image(src="{{c.url image_id }}")
@@ -21,50 +24,64 @@ with event
                     if url
                         a.impact-button-dark(href=url target='_window')
                             i.ticket.icon
-                            | Register
+                            | register on eventbrite
                     else if link
                         a.impact-button-dark(href=link target='_window')
                             i.ticket.icon
-                            | Register
-                    h3.impact-header When
+                            | register on eventbrite
+                    .ui.dividing.header when
                     .ui.basic.segment
                         h3
                             .ui.sub.header #{day} 
                             .ui.sub.header #{start_time} to #{end_time}
-                        if add_to_calendar_link
-                            a(href=add_to_calendar_link target='_blank')
-                                | Add to Google Calendar
-                    h3.impact-header Where
+                    .ui.dividing.header where
                     .ui.basic.segment
                         h3
                             a.ui.sub.header(href="http://maps.google.com/?q=#{location}" target='_blank') 
                                 |#{location}
                                 i.external.small.icon
                                 // +map 
-                        // h3.ui.dividing.header.make-uppercase Links
-                        // a(href=event_calendar_link)
-                        //     | Add to my calendar
-                    h3.impact-header Tags
+                    .ui.dividing.header going
+                    .ui.sub.header #{slots} slots
+                    +attach_user
+                    .ui.divided.list
+                        each attached_users
+                            .item
+                                .image
+                                    a(href="/profile/#{username}")
+                                        img.ui.avatar.image(src="{{c.url profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                                .content
+                                    a.header(href="/profile/#{username}")
+                                        if profile.name 
+                                            |#{profile.name}
+                                            // |#{profile.first_name} #{profile.last_name}
+                                        else
+                                            |#{username}
+                                    // .description
+                                    //     each five_tags
+                                    //         .ui.tiny.basic.label #{this}
+                                    .description
+                                        // // +staus_indicator
+                                        // |last seen #{last_login}
+
+                    
+                    .ui.dividing.header tags
                     .ui.basic.segment
                         each tags
                             .ui.basic.label #{this}
                     if isInRole 'admin'
-                        h3.impact-header 
+                        .ui.dividing.header 
                             i.red.configure.icon
-                            |Admin
+                            |admin
                         a.ui.basic.fluid.button(href="/event/edit/#{this._id}") 
                             i.pencil.icon
-                            |Edit
+                            |edit
                         if published
-                            .ui.green.label Published
+                            .ui.green.label published
                         else
-                            .ui.red.label Unpublished                        
+                            .ui.red.label unpublished                        
                         if featured
-                            .ui.green.label Featured
+                            .ui.green.label featured
                         else
-                            .ui.red.label Unfeatured
-                        if reoccurring
-                            .ui.green.label Reoccurring
-                        else
-                            .ui.red.label Not Reoccurring
+                            .ui.red.label unfeatured
                             

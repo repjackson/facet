@@ -1,0 +1,35 @@
+template(name='product_page')
+    with product
+        .ui.container
+            .ui.breadcrumb
+                a.section(href='/') Home
+                .divider  / 
+                a.section(href='/products') Services
+                .divider  / 
+                .active.section #{title}
+            .ui.hidden.divider
+            if image_id
+                img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+            .ui.stackable.grid
+                .eleven.wide.column
+                    h1.ui.dividing.header #{title}
+                    |!{content}
+                .five.wide.column
+                    .ui.dividing.header Price $#{price}
+                    +add_to_cart
+                    // .ui.dividing.header Tags
+                    // each tags
+                    //     .ui.basic.label #{this}
+                    // +user_card
+                    if can_edit
+                        .ui.dividing.header 
+                            i.red.configure.icon
+                            |Admin
+                        a.ui.basic.fluid.button(href="/product/#{_id}/edit")
+                            i.pencil.icon
+                            |Edit
+                        .ui.hidden.fitted.divider
+                        if published
+                            .ui.green.fluid.basic.label Published
+                        else
+                            .ui.red.fluid.basic.label Unpublished

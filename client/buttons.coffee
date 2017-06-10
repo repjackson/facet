@@ -376,3 +376,22 @@ Template.add_to_cart.helpers
             type: 'cart_item'
             parent_id: @_id
             author_id: Meteor.userId()
+            
+            
+Template.attach_user.helpers
+    can_join: -> 
+        if @attached_users
+            Meteor.userId() not in @attached_users
+    can_leave: -> 
+        if @attached_users
+            Meteor.userId() in @attached_users
+
+Template.attach_user.events
+    'click #attach_me': ->
+        Docs.update @_id,
+            $addToSet: attached_users: Meteor.userId()
+    
+    'click #deattach_me': ->
+        Docs.update @_id,
+            $pull: attached_users: Meteor.userId()
+            

@@ -49,15 +49,10 @@
                     .ui.header About Me
                     |#{profile.about_me}
                 // +user_courses
-                // if is_user
-                //     +my_friends
-                // if isInRole 'dev'
-                //     +user_docs
-                // if isInRole 'beta'
-                //     .ui.horizontal.divider.header
-                //         i.red.configure.icon
-                //         |Admin
-                //     +messages_with_user
-                //     if is_user
-                //         +clouds
-                // +public_quiz_sessions
+                +my_friends
+                +user_docs
+                +messages_with_user
+                if is_user
+                    +clouds
+                +timecard
+                +public_quiz_sessions

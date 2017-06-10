@@ -81,6 +81,15 @@ Template.number.events
         Docs.update @_id,
             $set: number: number
             
+Template.slots.events
+    'blur #slots': (e) ->
+        # console.log @
+        val = $(e.currentTarget).closest('#slots').val()
+        slots = parseInt val
+        # console.log slots
+        Docs.update @_id,
+            $set: slots: slots
+            
             
 Template.title.events
     'blur #title': (e,t)->

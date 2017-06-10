@@ -26,8 +26,11 @@ with event
             +link
             +content
             +tags
-            +featured
+            +slots
+            // +featured
             +published
-            if title
-                #save_event.ui.large.green.button Save
-            +delete_button
+            .ui.divider
+            .ui.center.aligned.basic.segment
+                if tags
+                    #save_event.ui.large.green.button save
+                +delete_button

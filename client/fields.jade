@@ -1,12 +1,12 @@
 template(name='start_end_time')
     .fields
         .field
-            label Start Date/Time
+            label start date/time
             .ui.left.icon.input
                 i.calendar.icon
                 input#start_datetime(type='datetime-local' value=start_datetime)
         .field
-            label End Date/Time
+            label end date/time
             .ui.left.icon.input
                 i.calendar.icon
                 input#end_datetime(type='datetime-local' value=end_datetime)
@@ -37,26 +37,31 @@ template(name='number')
         label Number
         input#number(type='number' min='0' value=number)
 
+template(name='slots')
+    .field
+        label slots (how many people can join)
+        input#slots(type='number' min='0' value=slots)
+
 
 template(name='tags')
     .field
-        label Tags
+        label tags
         input#add_tag(type='text' placeholder='Add Tag' maxlength='50' autofocus='')
-    each tags
-        a.ui.tag.label.doc_tag
-            i.minus.icon
-            |#{this}
+        each tags
+            a.ui.tag.label.doc_tag
+                i.minus.icon
+                |#{this}
 
 
 template(name='price')
     .field
-        label Price in $
+        label price in $
         input#price(type='number' min='0' value=price)
 
 
 template(name='link')
     .field
-        label Link (include http://)
+        label link (include http://)
         .ui.left.icon.input
             i.linkify.icon
             input#link(type='text' value=link)
@@ -73,13 +78,13 @@ template(name='type')
     .ui.labeled.input
         label 
             i.red.configure.icon
-            |Type
+            |type
         .ui.input
             input#type(type='text' value=type)
 
 template(name='location')
     .field
-        label Location
+        label location
         .ui.left.icon.input
             i.compass.icon
             input#location(type='text' value=location)

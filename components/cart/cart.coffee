@@ -24,7 +24,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'cart'
         Template.instance().checkout = StripeCheckout.configure(
             key: stripe_key
-            image: '/toriwebster-logomark-04.png'
+            image: '/android-icon-192x192.png'
             locale: 'auto'
             # zipCode: true
             token: (token) ->
@@ -87,7 +87,7 @@ if Meteor.isClient
             parent_doc = Docs.findOne @parent_id
             if parent_doc.price > 0
                 Template.instance().checkout.open
-                    name: 'Tori Webster Inspires, LLC'
+                    name: 'FacetCorp, LLC'
                     description: parent_doc.title
                     amount: parent_doc.price*100
             else

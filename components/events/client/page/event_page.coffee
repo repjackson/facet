@@ -3,6 +3,14 @@ Template.event_page.onCreated ->
     self.autorun ->
         self.subscribe 'doc', FlowRouter.getParam('doc_id')
 
+FlowRouter.route '/event/view/:doc_id', action: (params) ->
+    BlazeLayout.render 'layout',
+        # main: 'event_page'
+        main: 'event_page'
+
+
+
+
 Template.event_page.helpers
     event: -> Docs.findOne FlowRouter.getParam('doc_id')
 
@@ -11,6 +19,15 @@ Template.event_page.helpers
     day: -> moment(@start_datetime).format("dddd, MMMM Do");
     start_time: -> moment(@start_datetime).format("h:mm a")
     end_time: -> moment(@end_datetime).format("h:mm a")
+
+
+    attached_users: ->
+        if @attached_users
+            attached_user_array = []
+            for user_id in @attached_users
+                user = Meteor.users.findOne user_id
+                attached_user_array.push user
+            attached_user_array
 
 
     # event_calendar_link: ->

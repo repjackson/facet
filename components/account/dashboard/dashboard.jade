@@ -22,47 +22,36 @@ template(name='dashboard')
                     .header
                         i.edit.icon
                         |My Quizes
-        if isInRole 'dev'
-            .ui.segment
-                .ui.header 
-                    i.red.configure.icon
-                    |Dev
-                .ui.two.centered.stackable.cards
-                    a.ui.card(href='/transactions')
-                        .content
-                            .header
-                                i.exchange.icon
-                                |Transactions
-                    a.ui.card(href='/support')
-                        .content
-                            .header
-                                i.help.icon
-                                |Support
-                    a.ui.card(href='/messages')
-                        .content
-                            .header
-                                i.mail.icon
-                                |Messages
-                    a.ui.card(href='/checkin')
-                        .content
-                            .header
-                                i.lightning.icon
-                                |Check In
-                    a.ui.card(href='/facet')
-                        .content
-                            .header
-                                i.red.configure.icon
-                                i.connectdevelop.icon
-                                |Facet
-            // a.ui.card(href='/account')
-            //     .content
-            //         .header
-            //             i.setting.icon
-            //             |Account Preferences
-            // +me_card
+            a.ui.card(href='/transactions')
+                .content
+                    .header
+                        i.exchange.icon
+                        |Transactions
+            a.ui.card(href='/support')
+                .content
+                    .header
+                        i.help.icon
+                        |Support
+            a.ui.card(href='/messages')
+                .content
+                    .header
+                        i.mail.icon
+                        |Messages
+            .ui.two.centered.stackable.cards
+                a.ui.card(href='/checkin')
+                    .content
+                        .header
+                            i.lightning.icon
+                            |Check In
+            a.ui.card(href='/account')
+                .content
+                    .header
+                        i.setting.icon
+                        |Account Preferences
+            +me_card
             // +my_courses
             // +my_quizes
             // +my_purchases
-            // +my_friends
-            // +favorites
+            +my_friends
+            +favorites
             

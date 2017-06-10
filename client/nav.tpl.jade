@@ -5,8 +5,8 @@
         // |     Menu
     a.mobile.hidden.item(href='/' class="{{isActivePath '/'}}")
         .facet_black F
-    // a.mobile.hidden.item(href='/shop' class="{{isActivePath '/shop'}}")
-    //     i.shop.icon
+    a.mobile.hidden.item(href='/shop' class="{{isActivePath '/shop'}}")
+        i.shop.icon
     // a.mobile.hidden.item(href='/map' class="{{isActivePath '/map'}}")
     //     i.map.icon
     // a.mobile.hidden.item(href='/conversations' class="{{isActivePath '/conversations'}}")
@@ -26,6 +26,8 @@
         | Contact
     a.mobile.hidden.item(href='/about' class="{{isActivePath '/about'}}")
         i.help.icon
+    a.mobile.hidden.item(href='/apps' class="{{isActivePath '/apps'}}")
+        i.grid.layout.icon
     .right.mobile.hidden.menu
         if currentUser
             a#add_doc.mobile.hidden.icon.large.item

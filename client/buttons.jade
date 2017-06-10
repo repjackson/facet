@@ -113,13 +113,12 @@ template(name='delete_link')
 template(name='published')
     if published
         #unpublish.ui.basic.button
-            // i.toggle.on.green.icon
-            i.hide.icon
-            | Make Private
+            i.toggle.on.green.icon
+            | published 
     else
         #publish.ui.basic.button
-            i.unhide.icon
-            | Make Public
+            i.toggle.off.green.icon
+            | unpublished 
 
 template(name='featured')
     .field
@@ -171,5 +170,13 @@ template(name='bookmark_button')
             i.bookmark.icon
             | Bookmark
         
-        
+template(name='attach_user')
+    if can_join
+        #attach_me.ui.button 
+            i.add.user.icon
+            |join
+    if can_leave
+        #deattach_me.ui.button 
+            i.remove.user.icon
+            |leave
         

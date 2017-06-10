@@ -35,9 +35,9 @@ if Meteor.isClient
             if 0 < doc_count < 3
                 Tags.find { 
                     count: $lt: doc_count
-                    }, limit:10
+                    }, limit:20
             else
-                Tags.find({}, limit:10)
+                Tags.find({}, limit:20)
         
         ballot_tag_class: -> 
             button_class = []
@@ -74,6 +74,7 @@ if Meteor.isClient
                 Docs.find {type: 'ballot' }, 
                     sort:
                         tag_count: 1
+                    limit: 10
             # Docs.find {}, 
 
 
@@ -281,7 +282,7 @@ if Meteor.isServer
             find: ->
                 self = @
                 match = {}
-                # match.tags = $all: selected_ballot_tags
+                match.tags = $all: selected_ballot_tags
                 if view_unvoted 
                     match.$or =
                         [
@@ -291,7 +292,7 @@ if Meteor.isServer
                 if view_upvoted then match.upvoters = $in: [@userId]
                 if view_downvoted then match.downvoters = $in: [@userId]
                 
-                if selected_ballot_tags.length > 0 then match.tags = $all: selected_ballot_tags
+                # if selected_ballot_tags.length > 0 then match.tags = $all: selected_ballot_tags
                 match.type = 'ballot'
                 # console.log view_mode
                 

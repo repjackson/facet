@@ -1,0 +1,19 @@
+.ui.container
+    h1.ui.center.aligned.header Guest Check In
+    .ui.huge.form
+        .field
+            label Name
+            .ui.left.icon.input
+                +inputAutocomplete settings=guest_name_settings id="guest_name" class="" autocomplete="off" 
+        .field
+            label Email
+            input(type='email')
+        .field
+            label Associated Member
+            .ui.left.icon.input
+                +inputAutocomplete settings=associated_member_name_settings id="associated_member_name" class="" autocomplete="off" 
+    .ui.center.aligned.basic.segment
+        .ui.center.aligned.green.button
+            |Check In
+            i.right.arrow.icon
+                            

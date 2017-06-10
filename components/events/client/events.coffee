@@ -1,3 +1,16 @@
+Template.events.onCreated -> @autorun -> Meteor.subscribe('selected_events', selected_tags.array())
+# Template.admin_events.onCreated -> @autorun -> Meteor.subscribe('all_events')
+# Template.upcoming_events.onCreated -> @autorun -> Meteor.subscribe('upcoming_events', selected_tags.array())
+# Template.past_events.onCreated -> @autorun -> Meteor.subscribe('past_events', selected_tags.array())
+
+
+
+
+FlowRouter.route '/events', action: (params) ->
+    BlazeLayout.render 'layout',
+        nav: 'nav'
+        # cloud: 'event_cloud'
+        main: 'events'
 
     
 Template.events.events
@@ -15,14 +28,6 @@ Template.events.events
         id = Docs.insert 
             type: 'event'
         FlowRouter.go "/event/edit/#{id}"
-
-
-
-
-Template.events.onCreated -> @autorun -> Meteor.subscribe('selected_events', selected_tags.array())
-# Template.admin_events.onCreated -> @autorun -> Meteor.subscribe('all_events')
-# Template.upcoming_events.onCreated -> @autorun -> Meteor.subscribe('upcoming_events', selected_tags.array())
-# Template.past_events.onCreated -> @autorun -> Meteor.subscribe('past_events', selected_tags.array())
 
 Template.upcoming_events.helpers
     upcoming_events: -> 

@@ -1,14 +1,29 @@
 if Meteor.isClient
-    FlowRouter.route '/marketplace', action: ->
+    FlowRouter.route '/shop', action: ->
         BlazeLayout.render 'layout',
             # sub_nav: 'account_nav'
-            main: 'marketplace'
+            main: 'shop'
 
-    Template.marketplace.onCreated ->
+    FlowRouter.route '/product/:doc_id/edit', 
+        name: 'product_edit'
+        action: (params) ->
+            BlazeLayout.render 'layout',
+                main: 'product_edit'
+    
+    FlowRouter.route '/product/:doc_id/view', 
+        name: 'view_product'
+        action: (params) ->
+            BlazeLayout.render 'layout',
+                main: 'product_page'
+
+
+
+
+    Template.shop.onCreated ->
         @autorun -> Meteor.subscribe('selected_products')
         Session.set 'layout_view', 'list'
     
-    Template.marketplace.helpers
+    Template.shop.helpers
         products: -> 
             Docs.find {type: 'product'},
                 sort:
@@ -21,7 +36,7 @@ if Meteor.isClient
         list_layout_button_class: -> if Session.get('layout_view') is 'list' then 'teal' else 'basic'
         grid_layout_button_class: -> if Session.get('layout_view') is 'grid' then 'teal' else 'basic'
                 
-    Template.marketplace.events
+    Template.shop.events
         'click #add_product': ->
             id = Docs.insert
                 type: 'product'
