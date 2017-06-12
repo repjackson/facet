@@ -8,6 +8,18 @@ template(name='docs')
                 // i.plus.icon
                 input#quick_add(type='text' placeholder='quick add')
                 i.lightning.icon
+        .ui.inverted.four.item.stackable.pointing.menu
+            a#set_mode_to_all.item(class=all_item_class) 
+                |All
+            a#select_unvoted.item(class=unvoted_item_class) 
+                |Unvoted
+            a#toggle_voted_up.item(class=voted_up_class) 
+                i.thumbs.up.icon
+                |Voted Up (#{voted_up_count})
+            a#toggle_voted_down.item(class=voted_down_class) 
+                i.thumbs.down.icon
+                |Voted Down (#{voted_down_count})
+            
         +cloud
         .ui.text.container
             each docs
@@ -27,8 +39,10 @@ template(name='cloud')
                 strong #{this}
     div
         each all_tags
-            .ui.compact.button.select_tag(class=tag_cloud_class) #{this.name}
-                // small #{this.count}
+            // .ui.compact.button.select_tag(class=tag_cloud_class) #{this.name}
+            .ui.large.button.select_tag 
+                strong #{this.name}
+                small #{this.count}
 
 
 
@@ -46,6 +60,7 @@ template(name='view')
                         i.pencil.icon.icon
                 else
                     | by #{author.username} #{when}
+                +both_voter
             else
                 +edit
 

@@ -1,22 +1,30 @@
 @selected_tags = new ReactiveArray []
 
 Template.cloud.onCreated ->
-    @autorun => Meteor.subscribe('tags', selected_tags.array(), @data.filter)
+    # @autorun => Meteor.subscribe('tags', selected_tags.array(), @data.filter)
+    @autorun => 
+        Meteor.subscribe('tags', 
+            selected_tags.array()
+            limit=20
+            view_unvoted=Session.get('view_unvoted') 
+            view_upvoted=Session.get('view_upvoted') 
+            view_downvoted=Session.get('view_downvoted')
+        )
 
 Template.cloud.helpers
     all_tags: ->
         doc_count = Docs.find().count()
-        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
+        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 50)
         # Tags.find()
         
-    tag_cloud_class: ->
-        button_class = switch
-            when @index <= 20 then 'big'
-            when @index <= 40 then 'large'
-            when @index <= 60 then ''
-            when @index <= 80 then 'small'
-            when @index <= 100 then 'tiny'
-        return button_class
+    # tag_cloud_class: ->
+    #     button_class = switch
+    #         when @index <= 20 then 'big'
+    #         when @index <= 40 then 'large'
+    #         when @index <= 60 then ''
+    #         when @index <= 80 then 'small'
+    #         when @index <= 100 then 'tiny'
+    #     return button_class
 
     settings: -> {
         position: 'bottom'

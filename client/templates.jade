@@ -36,8 +36,8 @@ template(name='layout')
                         +Template.dynamic template=sub_sub_nav
                         +Template.dynamic template=cloud
                         +Template.dynamic template=main
-                        // unless isInRole 'dev'
-                        //     +footer
+                unless isInRole 'dev'
+                    +footer
                     // else
                             // +dev_footer
 template(name='sidebar')
@@ -117,6 +117,14 @@ template(name='user_list_item')
 
 
 template(name='footer')
-    .footer.ui.basic.fluid.inverted.center.aligned.segment
-        .ui.header
-            i.creative.commons.icon
+    .footer.ui.basic.fluid.center.aligned.segment
+        .ui.divider
+        .ui.two.column.stackable.grid
+            .column
+                .ui.list
+                    a.item(href='/bugs') 
+                        i.bug.icon
+                        |report bug
+            .column
+                .ui.header
+                    i.creative.commons.icon

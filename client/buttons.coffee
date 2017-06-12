@@ -44,6 +44,29 @@ Template.big_both_voter.events
             Meteor.call 'vote_down', @_id
             # $(e.currentTarget).closest('.vote_down').transition('pulse')
         else FlowRouter.go '/sign-in'
+Template.both_voter.helpers
+    vote_up_button_class: ->
+        if not Meteor.userId() then 'disabled'
+        else if @upvoters and Meteor.userId() in @upvoters then 'green'
+        else 'outline'
+
+    vote_down_button_class: ->
+        if not Meteor.userId() then 'disabled'
+        else if @downvoters and Meteor.userId() in @downvoters then 'red'
+        else 'outline'
+
+Template.both_voter.events
+    'click .vote_up': (e,t)-> 
+        if Meteor.userId() 
+            Meteor.call 'vote_up', @_id
+            $(e.currentTarget).closest('.vote_up').transition('pulse')
+        else FlowRouter.go '/sign-in'
+
+    'click .vote_down': (e,t)-> 
+        if Meteor.userId() 
+            Meteor.call 'vote_down', @_id
+            $(e.currentTarget).closest('.vote_down').transition('pulse')
+        else FlowRouter.go '/sign-in'
 
 
 

@@ -8,10 +8,7 @@ FlowRouter.route '/edit/:doc_id',
 
 
 Template.edit.onCreated ->
-    self = @
-    self.autorun ->
-        doc_id = FlowRouter.getParam('doc_id')
-        self.subscribe 'doc', doc_id
+    @autorun => Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
 
 
 Template.edit.onRendered ->

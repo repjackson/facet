@@ -1,71 +1,6 @@
-publishComposite 'docs', (selected_tags, editing_id)->
-    {
-        find: ->
-            if editing_id
-                Docs.find editing_id
-            else
-                self = @
-                match = {}
-                match.tags = $all: selected_tags
-                Docs.find match,
-                    sort: tag_count: 1
-                    limit: 5
-        children: [
-            find: (doc)->
-                Meteor.users.find
-                    _id: doc.author_id
-            ]
-        
-    }
-                    
-publishComposite 'doc', (id)->
-    {
-        find: ->
-            Docs.find id
-        children: [
-            {
-                find: (doc)->
-                    Meteor.users.find
-                        _id: doc.author_id
-            }
-            {
-                find: (doc)->
-                    Meteor.users.find
-                        _id: $in: doc.attached_users
-            }
-        ]
-    }
 
 
 
-Meteor.publish 'tags', (selected_tags, filter)->
-    self = @
-    match = {}
-    if selected_tags.length > 0 then match.tags = $all: selected_tags
-    if filter then match.type = filter
-
-
-    cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "tags": 1 }
-        { $unwind: "$tags" }
-        { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: selected_tags }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 100 }
-        { $project: _id: 0, name: '$_id', count: 1 }
-        ]
-
-    # console.log 'filter: ', filter
-    # console.log 'cloud: ', cloud
-
-    cloud.forEach (tag, i) ->
-        self.added 'tags', Random.id(),
-            name: tag.name
-            count: tag.count
-            index: i
-
-    self.ready()
 
 
 
@@ -80,21 +15,6 @@ Meteor.users.allow
 # Kadira.connect('Dmhg2hdSobHy3fXWE', '940bb181-70ce-42c4-a557-77696e5da41d')
 
 
-
-Meteor.publish 'userStatus', ->
-    Meteor.users.find { 'status.online': true }, 
-        fields: 
-            points: 1
-            tags: 1
-            
-            
-            
-Meteor.publish 'user_status_notification', ->
-    Meteor.users.find('status.online': true).observe
-        added: (id) ->
-            console.log "#{id} just logged in"
-        removed: (id) ->
-            console.log "#{id} just logged out"
 
 
 Cloudinary.config
@@ -122,6 +42,7 @@ Meteor.methods
 
 
 Accounts.onCreateUser (options, user) ->
+    user.points = 0
     return user
 
 # AccountsMeld.configure

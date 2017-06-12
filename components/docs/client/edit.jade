@@ -1,47 +1,50 @@
 template(name='edit')
     with doc
-        .ui.container
-            .ui.segment
-                .ui.center.aligned.header Edit Doc
-                .ui.segment
-                    .ui.header Document Tags
+        .ui.container.segment
+            .ui.center.aligned.header edit doc
+            .ui.form
+                .field
+                    .label doc tags
                     each tags
                         .ui.labeled.icon.button.docTag
                             i.remove.icon
                             |#{this}
                     .ui.left.icon.input
                         i.plus.icon
-                        input#addTag(type=text placeholder='Manual add...' autofocus='')
-                .ui.input
-                    input#place(type='text' placeholder='Add Address')
-                .ui.input
-                    input#datetimepicker(type="text" value=dateTime placeholder='Add Date/Time')
-                    .ui.button.clearDT Clear Date/Time
+                        input#addTag(type=text placeholder='add...' autofocus='')
+                .field
+                    .label location
+                    input#place(type='text' placeholder='add address')
+                .field
+                    .label date/time
+                    input#datetimepicker(type="text" value=dateTime placeholder='add date/time')
+                    .ui.button.clearDT clear date/time
                 if keywords
                     .ui.segment
-                        .ui.header Suggestions
+                        .ui.header suggestions
                         if keywords
-                            div Keywords
+                            div keywords
                                 each keywords
                                     .docKeyword.ui.compact.button(class=docKeywordClass) #{text}
                         if concepts
-                            div Concepts
+                            div concepts
                                 each concepts
                                     .docKeyword.ui.compact.button(class=docKeywordClass) #{text}
                 if sentiment
-                    |Sentiment: #{docSentiment.type} #{docSentiment.score}
+                    |sentiment: #{docSentiment.type} #{docSentiment.score}
                 if language
-                    |Language: #{language}
+                    |language: #{language}
                 if taxonomy
-                    p Taxonomy
+                    p taxonomy
                     each taxonomy
                         .ui.label
                             div #{label}
                             // div Score: #{score}
                             // div Confident: #{confident}
-                .ui.basic.segment
-                    #analyzeBody.ui.basic.button Analyze Body
-                    +CodeMirror id="body" options=editorOptions code=body
+                // .ui.basic.segment
+                //     #analyzeBody.ui.basic.button analyze body
+                //     +CodeMirror id="body" options=editorOptions code=body
                 +content
-                #saveDoc.ui.button Save
-                #deleteDoc.ui.button Delete
+            .ui.basic.center.aligned.segment
+                #saveDoc.ui.large.button save
+                #deleteDoc.ui.button delete

@@ -32,9 +32,9 @@ if Meteor.isServer
                 children: [ 
                     { 
                         find: (user) ->
-                            Counts.publish this, 'users.profile', Posts.find(authorId: user._id), noReady: true
-                            Posts.find { authorId: user._id },
-                                sort: createdAt: -1
+                            Counts.publish this, 'users.profile', Docs.find(author_id: user._id), noReady: true
+                            Docs.find { author_id: user._id },
+                                sort: timestamp: -1
                                 limit: limit
                     }
                 ]
