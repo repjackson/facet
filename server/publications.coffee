@@ -13,11 +13,15 @@ Meteor.publish 'user_status_notification', ->
         removed: (id) ->
             console.log "#{id} just logged out"
 
-Meteor.publish 'tags', (selected_tags, limit, view_unvoted, view_upvoted, view_downvoted)->
+Meteor.publish 'tags', (selected_tags, selected_numbers, limit, view_unvoted, view_upvoted, view_downvoted)->
     self = @
     match = {}
     if selected_tags.length > 0 then match.tags = $all: selected_tags
+    if selected_numbers.length > 0 then match.numbers = $all: selected_numbers
     # if filter then match.type = filter
+    
+    # console.log selected_numbers
+    # console.log selected_tags
     if view_unvoted 
         match.$or =
             [
@@ -51,7 +55,7 @@ Meteor.publish 'tags', (selected_tags, limit, view_unvoted, view_upvoted, view_d
     self.ready()
 
 
-publishComposite 'docs', (selected_tags, limit=null, view_unvoted, view_upvoted, view_downvoted)->
+publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvoted, view_upvoted, view_downvoted)->
     {
         find: ->
             # if editing_id
@@ -68,7 +72,8 @@ publishComposite 'docs', (selected_tags, limit=null, view_unvoted, view_upvoted,
             if view_upvoted then match.upvoters = $in: [@userId]
             if view_downvoted then match.downvoters = $in: [@userId]
 
-            match.tags = $all: selected_tags
+            if selected_tags.length > 0 then match.tags = $all: selected_tags
+            if selected_numbers.length > 0 then match.number = $all: selected_numbers
             if limit
                 Docs.find match, 
                     limit: limit
@@ -117,3 +122,12 @@ Meteor.publish 'me', ->
             completed_ids: 1
             bookmarked_ids: 1
     
+Meteor.publish 'unvoted_count', ->
+    Counts.publish this, 'unpublished_lightbank_count', Docs.find(type: 'ballot', $or:[{upvoters: $in: [@userId]},{downvoters: $in: [@userId]} ])
+    return undefined    # otherwise coffeescript returns a Counts.publish
+Meteor.publish 'voted_up_count', ->
+    Counts.publish this, 'voted_up_count', Docs.find(type: 'ballot', upvoters: $in: [@userId])
+    return undefined    # otherwise coffeescript returns a Counts.publish
+Meteor.publish 'voted_down_count', ->
+    Counts.publish this, 'voted_down_count', Docs.find(type: 'ballot', downvoters: $in: [@userId])
+    return undefined    # otherwise coffeescript returns a Counts.publish

@@ -1,6 +1,12 @@
 template(name='edit')
     with doc
         .ui.container.segment
+            .ui.segment
+                .ui.header elements
+                each elements
+                    .ui.labeled.icon.button
+                        i.plus.icon
+                        |#{this}
             .ui.center.aligned.header edit doc
             .ui.form
                 .field
@@ -12,6 +18,9 @@ template(name='edit')
                     .ui.left.icon.input
                         i.plus.icon
                         input#addTag(type=text placeholder='add...' autofocus='')
+                +title
+                +number
+                +price
                 .field
                     .label location
                     input#place(type='text' placeholder='add address')

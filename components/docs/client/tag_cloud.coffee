@@ -1,20 +1,21 @@
 @selected_tags = new ReactiveArray []
 
-Template.cloud.onCreated ->
+Template.tag_cloud.onCreated ->
     # @autorun => Meteor.subscribe('tags', selected_tags.array(), @data.filter)
     @autorun => 
         Meteor.subscribe('tags', 
             selected_tags.array()
+            selected_numbers.array()
             limit=20
             view_unvoted=Session.get('view_unvoted') 
             view_upvoted=Session.get('view_upvoted') 
             view_downvoted=Session.get('view_downvoted')
         )
 
-Template.cloud.helpers
+Template.tag_cloud.helpers
     all_tags: ->
         doc_count = Docs.find().count()
-        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 50)
+        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 20)
         # Tags.find()
         
     # tag_cloud_class: ->
@@ -46,7 +47,7 @@ Template.cloud.helpers
         selected_tags.array()
 
 
-Template.cloud.events
+Template.tag_cloud.events
     'click .select_tag': -> selected_tags.push @name
     'click .unselect_tag': -> selected_tags.remove @valueOf()
     'click #clear_tags': -> selected_tags.clear()

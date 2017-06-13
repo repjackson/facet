@@ -36,8 +36,8 @@ template(name='layout')
                         +Template.dynamic template=sub_sub_nav
                         +Template.dynamic template=cloud
                         +Template.dynamic template=main
-                unless isInRole 'dev'
-                    +footer
+                // unless isInRole 'dev'
+                //     +footer
                     // else
                             // +dev_footer
 template(name='sidebar')

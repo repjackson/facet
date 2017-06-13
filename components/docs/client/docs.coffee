@@ -3,6 +3,7 @@ Template.docs.onCreated ->
     @autorun => 
         Meteor.subscribe('docs', 
             selected_tags.array() 
+            selected_numbers.array() 
             limit=null 
             view_unvoted=Session.get('view_unvoted') 
             view_upvoted=Session.get('view_upvoted') 
@@ -14,13 +15,13 @@ Template.docs.onCreated ->
 
 Template.docs.helpers
     docs: -> 
-        if Session.get 'editing_id'
-            Docs.find Session.get('editing_id')
-        else    
-            Docs.find { }, 
-                sort:
-                    tag_count: 1
-                limit: 1
+        # if Session.get 'editing_id'
+        #     Docs.find Session.get('editing_id')
+        # else    
+        Docs.find { }, 
+            sort:
+                tag_count: 1
+            # limit: 1
 
     tag_class: -> if @valueOf() in selected_tags.array() then 'active' else ''
     is_editing: -> Session.equals 'editing_id', @_id

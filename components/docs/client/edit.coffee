@@ -67,7 +67,26 @@ Template.edit.helpers
     #     console.log keywordNames
     #     _.difference @tags, @keywords
 
-
+    elements:->
+        [
+            'title'
+            'number'
+            'content'
+            'price'
+            'location'
+            'start_time'
+            'end_time'
+            'attached_users'
+            'voting'
+            'star_rating'
+            'tag_rating'
+            'comments'
+            'link'
+            'image'
+            'youtube video'
+            'vimeo video'
+            'file'
+            ]
 
     docKeywordClass: ->
         doc_id = FlowRouter.getParam('doc_id')

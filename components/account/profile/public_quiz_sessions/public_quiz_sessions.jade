@@ -1,8 +1,0 @@
-template(name='public_quiz_sessions')
-    if is_user
-        .ui.dividing.header My Quiz Sessions
-    else
-        .ui.dividing.header Public Quiz Sessions
-    .ui.cards
-        each public_quiz_sessions
-            +session_card

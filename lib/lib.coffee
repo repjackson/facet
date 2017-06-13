@@ -1,5 +1,6 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
+@Numbers = new Meteor.Collection 'numbers'
 @People_tags = new Meteor.Collection 'people_tags'
 
 

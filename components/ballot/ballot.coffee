@@ -255,13 +255,3 @@ if Meteor.isServer
             
             
             
-    Meteor.publish 'unvoted_count', ->
-        Counts.publish this, 'unpublished_lightbank_count', Docs.find(type: 'ballot', $or:[{upvoters: $in: [@userId]},{downvoters: $in: [@userId]} ])
-        return undefined    # otherwise coffeescript returns a Counts.publish
-    Meteor.publish 'voted_up_count', ->
-        Counts.publish this, 'voted_up_count', Docs.find(type: 'ballot', upvoters: $in: [@userId])
-        return undefined    # otherwise coffeescript returns a Counts.publish
-    Meteor.publish 'voted_down_count', ->
-        Counts.publish this, 'voted_down_count', Docs.find(type: 'ballot', downvoters: $in: [@userId])
-        return undefined    # otherwise coffeescript returns a Counts.publish
-    
