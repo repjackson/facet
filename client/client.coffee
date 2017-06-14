@@ -32,14 +32,4 @@ Template.registerHelper 'is_editing', () ->
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
 
 
-FlowRouter.route '/about', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'about'
-
-
-
-
-        
-        
-        
         

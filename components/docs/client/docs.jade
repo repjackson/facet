@@ -1,39 +1,32 @@
 template(name='docs')
-    .ui.container
-        // unless is_editing
-        // if currentUser
-        //     #add.ui.icon.button
-        //         i.plus.icon
-        //     .ui.icon.input
-        //         // i.plus.icon
-        //         input#quick_add(type='text' placeholder='quick add')
-        //         i.lightning.icon
-        .ui.inverted.four.item.stackable.pointing.menu
-            a#set_mode_to_all.item(class=all_item_class) 
-                |All
-            a#select_unvoted.item(class=unvoted_item_class) 
-                |Unvoted
-            a#toggle_voted_up.item(class=voted_up_class) 
+    .ui.stackable.grid
+        .six.wide.column
+            .ui.horizontal.divider.header filters
+            +tag_cloud
+            +number_cloud
+            // if currentUser
+            //     #add.ui.icon.button
+            //         i.plus.icon
+            //     .ui.icon.input
+            //         // i.plus.icon
+            //         input#quick_add(type='text' placeholder='quick add')
+            //         i.lightning.icon
+            .ui.header votes
+            // a#set_mode_to_all.item(class=all_item_class) 
+            //     |All
+            // a#select_unvoted.item(class=unvoted_item_class) 
+            //     |Unvoted
+            #toggle_voted_up.ui.icon.button(class=voted_up_class) 
                 i.thumbs.up.icon
-                |Voted Up (#{voted_up_count})
-            a#toggle_voted_down.item(class=voted_down_class) 
+                | (#{voted_up_count})
+                // |Voted Up (#{voted_up_count})
+            #toggle_voted_down.ui.icon.button(class=voted_down_class) 
                 i.thumbs.down.icon
-                |Voted Down (#{voted_down_count})
-            
-        +tag_cloud
-        +number_cloud
-        .ui.inverted.five.item.stackable.pointing.menu
-            a#set_mode_to_all.item(class=all_item_class) 
-                i.calendar.large.icon
-            a#select_unvoted.item(class=unvoted_item_class) 
-                i.grid.layout.large.icon
-            a#toggle_voted_up.item(class=voted_up_class) 
-                i.list.layout.large.icon
-            a#toggle_voted_down.item(class=voted_down_class) 
-                i.map.large.icon
-            a#toggle_voted_down.item(class=voted_down_class) 
-                i.shop.large.icon
-        .ui.text.container
+                |(#{voted_down_count})
+                // |Voted Down (#{voted_down_count})
+                
+        .ten.wide.column
+            .ui.horizontal.divider.header docs
             each docs
                 // if one_doc
                 +view
@@ -42,41 +35,25 @@ template(name='docs')
 
 
 template(name='view')
-    .ui.basic.segment
-        .content
-            // unless is_editing
-            .meta
-                each tags
-                    .ui.button.tag(class=tag_class) #{this}
-            .description
-                |!{content}
-            if is_author
-                a.ui.button(href="/edit/#{_id}") edit
-            else
-                | by #{author.username} #{when}
-            +both_voter
+    .ui.segment
+        if title
+            .ui.header #{title}
+        .description
+            |!{content}
+        .meta
+            i.tags.icon
+            each tags
+                .ui.button.tag(class=tag_class) #{this}
+        if price
+            .ui.header price $#{price}
+        if number
+            .ui.header number ##{number}
+        if start_datetime
+            .ui.sub.header #{day} 
+            .ui.sub.header #{start_time} to #{end_time}
 
-
-
-
-
-// template(name='edit')
-//     .ui.center.aligned.header edit
-//     .ui.form
-//         .field
-//             label Tags
-//             each tags
-//                 .ui.button.doc_tag
-//                     i.minus.icon
-//                     |#{this}
-//             .ui.hidden.fitted.divider        
-//             .ui.left.icon.four.wide.input
-//                 i.add.icon
-//                 input#add_tag(type='text' placeholder='Add Tag' maxlength='50')
-//             // .ui.label tag count #{tag_count}
-//         +content
-//         .ui.center.aligned.basic.segment
-//             if tags
-//                 .save.ui.big.green.button save
-//             #delete.ui.icon.red.button
-//                 i.remove.icon
+        if is_author
+            a.ui.icon.button(href="/edit/#{_id}")
+                i.pencil.icon
+        | by #{author.username} #{when}
+        +both_voter

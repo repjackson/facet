@@ -15,22 +15,3 @@ template(name='account')
                     input#username(type='text' value=currentUser.username)
                     #submit_username_change.ui.submit.button Submit
             
-template(name='account_nav')
-    if isInRole 'admin'
-        .ui.stackable.inverted.five.item.menu
-            .ui.container
-                a.item(href="/dashboard" class="{{isActivePath '/dashboard'}}")
-                    i.dashboard.icon
-                    |Dashboard
-                a.item(href="/account/profile/edit" class="{{isActivePath '/account/profile/edit'}}")
-                    i.user.icon
-                    |Profile
-                a.item(href='/account/favorites' class="{{isActivePath '/account/favorites'}}")
-                    i.heart.icon
-                    |Favorites
-                a.item(href='/account/clouds' class="{{isActivePath '/account/clouds'}}")
-                    i.cloud.icon
-                    |Clouds
-                a.item(href='/account' class="{{isActivePath '/account'}}")
-                    i.options.icon
-                    | Account

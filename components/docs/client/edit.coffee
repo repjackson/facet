@@ -50,22 +50,7 @@ Template.edit.onRendered ->
                 Meteor.call 'updatelocation', doc_id, result, ->
 
 Template.edit.helpers
-    doc: ->
-        doc_id = FlowRouter.getParam('doc_id')
-        Docs.findOne doc_id
-
-    editorOptions: ->
-        lineNumbers: true
-        mode: 'markdown'
-        lineWrapping: true
-
-    # unpickedConcepts: ->
-    #     diff = _.map @tags, (tag)->
-    #         tag.toLowerCase() in @concept_array
-    # unpickedKeywords: ->
-    #     keywordNames = keyword.text for keyword in @keywords
-    #     console.log keywordNames
-    #     _.difference @tags, @keywords
+    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
 
     elements:->
         [
@@ -87,11 +72,6 @@ Template.edit.helpers
             'vimeo video'
             'file'
             ]
-
-    docKeywordClass: ->
-        doc_id = FlowRouter.getParam('doc_id')
-        doc = Docs.findOne doc_id
-        if @text.toLowerCase() in doc.tags then 'disabled' else ''
 
 Template.edit.events
     'keyup #addTag': (e,t)->
@@ -126,30 +106,13 @@ Template.edit.events
             $pull: tags: @valueOf()
         $('#addTag').val(tag)
 
-    'click #analyzeBody': ->
-        Docs.update FlowRouter.getParam('doc_id'),
-            $set: body: $('#body').val()
-        Meteor.call 'analyze', FlowRouter.getParam('doc_id')
 
     'click #saveDoc': ->
-        Docs.update FlowRouter.getParam('doc_id'),
-            $set: body: $('#body').val()
-
-        thisDocTags = @tags
         FlowRouter.go '/'
-        selectedTags = thisDocTags
+        selected_tags.clear()
+        selected_tags.push tag for tag in @tags
 
     'click #deleteDoc': ->
         if confirm 'Delete this doc?'
             Docs.remove @_id
             FlowRouter.go '/'
-
-
-    'click .docKeyword': ->
-        doc_id = FlowRouter.getParam('doc_id')
-        doc = Docs.findOne doc_id
-        loweredTag = @text.toLowerCase()
-        if @text in doc.tags
-            Docs.update FlowRouter.getParam('doc_id'), $pull: tags: loweredTag
-        else
-            Docs.update FlowRouter.getParam('doc_id'), $push: tags: loweredTag

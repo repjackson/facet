@@ -4,7 +4,6 @@
             tr
                 th Image
                 th Profile
-                th Colors
                 th Roles
         tbody
             each members
@@ -27,8 +26,6 @@
                         a.ui.compact.basic.button(href="/profile/#{username}")
                             | Profile
                             i.right.chevron.icon
-                    td 
-                        +color_dots
                     td 
                         .ui.hidden.fitted.divider
                         .ui.left.labeled.button

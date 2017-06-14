@@ -5,6 +5,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe('numbers', selected_numbers.array(), @data.filter)
         @autorun => 
             Meteor.subscribe('numbers', 
+                selected_tags.array()
                 selected_numbers.array()
                 limit=20
                 view_unvoted=Session.get('view_unvoted') 
@@ -15,7 +16,13 @@ if Meteor.isClient
     Template.number_cloud.helpers
         all_numbers: ->
             doc_count = Docs.find().count()
-            if 0 < doc_count < 3 then Numbers.find { count: $lt: doc_count } else Numbers.find({}, limit: 20)
+            if 0 < doc_count < 3 
+                Numbers.find {count: $lt: doc_count},
+                    sort: name: 1
+            else 
+                Numbers.find {},
+                    limit: 20
+                    sort: name: 1
             # Numbers.find()
             
         # number_cloud_class: ->
@@ -76,10 +83,11 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'numbers', (selected_numbers, limit, view_unvoted, view_upvoted, view_downvoted)->
+    Meteor.publish 'numbers', (selected_tags, selected_numbers, limit, view_unvoted, view_upvoted, view_downvoted)->
         self = @
         match = {}
-        if selected_numbers.length > 0 then match.numbers = $all: selected_numbers
+        if selected_numbers.length > 0 then match.number = $all: selected_numbers
+        if selected_tags.length > 0 then match.tags = $all: selected_tags
         # if filter then match.type = filter
         if view_unvoted 
             match.$or =

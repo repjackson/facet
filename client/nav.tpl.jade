@@ -1,71 +1,48 @@
-.ui.borderless.inverted.top.attached.menu
-    a.toggle_sidebar.item
-        i.sidebar.icon
+.ui.inverted.top.attached.menu
+    // a.toggle_sidebar.item
+    //     i.sidebar.icon
         // .facet_black F
         // |     Menu
-    a.mobile.hidden.item(href='/' class="{{isActivePath '/'}}")
-        .facet_black F
-    a.mobile.hidden.item(href='/shop' class="{{isActivePath '/shop'}}")
-        i.shop.icon
-    // a.mobile.hidden.item(href='/map' class="{{isActivePath '/map'}}")
-    //     i.map.icon
-    // a.mobile.hidden.item(href='/conversations' class="{{isActivePath '/conversations'}}")
-    //     i.comments.outline.icon
-    // a.mobile.hidden.item(href='/university' class="{{isActivePath '/university'}}")
-    //     i.university.icon
-    // a.item(href='/people' class="{{isActivePath '/people'}}")
-    //     i.users.icon
-    // a.mobile.hidden.item(href='/ballot' class="{{isActivePath '/ballot'}}")
-    //     i.thumbs.up.outline.icon
-    //     | Data Ballot
-    a.mobile.hidden.item(href='/events' class="{{isActivePath '/events'}}")
-        i.calendar.icon
-        | Events
-    // a.mobile.hidden.item(href='/contact' class="{{isActivePath '/contact'}}") 
-    //     i.at.icon
-    //     | Contact
-    // a.mobile.hidden.item(href='/about' class="{{isActivePath '/about'}}")
-    //     i.help.icon
-    // a.mobile.hidden.item(href='/apps' class="{{isActivePath '/apps'}}")
-    //     i.grid.layout.icon
-    .right.mobile.hidden.menu
-        if currentUser
-            a#add_doc.mobile.hidden.icon.large.item
-                i.plus.icon
-            if cart_items
-                a.icon.item(href='/cart' class="{{isActivePath '/cart'}}")
-                    i.large.icons
-                        i.cart.icon
-                        i.corner.asterisk.icon
-            // a.mobile.hidden.icon.item(href='/notifications' class="{{isActivePath '/notifications'}}")
-            //     i.alarm.outline.icon
-            // a.mobile.hidden.icon.item(href='/messages' class="{{isActivePath '/messages'}}")
-            //     i.mail.outline.icon
-            // a.mobile.hidden.icon.item(href='/account' class="{{isActivePath '/account'}}")
-            //     i.setting.icon
-            if isInRole 'admin'
-                a.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    i.configure.icon
-                    // | Admin
-            // if isInRole 'dev'
-            //     a.item(href='/messages' class="{{isActivePath '/messages'}}")
-            //         i.mail.outline.icon
-            //         // | Admin
-            a.item(href="/dashboard" class="{{isActivePath '/dashboard'}}")
-                .ui.inverted.mini.statistic
-                    .value
-                        if currentUser.profile.image_id
-                            img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                        else
-                            i.user.icon
-                        | #{currentUser.points}
-                    .label
-                        if currentUser.name
-                            | #{currentUser.name}
-                        else
-                            | #{currentUser.username}
-            a#logout.ui.item(href='#')
-                i.sign.out.icon
-        else
-            a.ui.item(href='/sign-in') 
-                i.sign.in.icon
+    a.item(href='/' class="{{isActivePath '/'}}")
+        i.large.square.outline.icon
+    a#set_mode_to_all.item(class=all_item_class) 
+        i.calendar.large.icon
+    a#select_unvoted.item(class=unvoted_item_class) 
+        i.grid.layout.large.icon
+    a#toggle_voted_up.item(class=voted_up_class) 
+        i.list.layout.large.icon
+    a#toggle_voted_down.item(class=voted_down_class) 
+        i.map.large.icon
+    a#toggle_voted_down.item(class=voted_down_class) 
+        i.shop.large.icon
+    // .ui.vertical.divider    
+    if currentUser
+        a#add_doc.icon.large.item
+            i.large.plus.icon
+        if cart_items
+            a.icon.item(href='/cart' class="{{isActivePath '/cart'}}")
+                i.large.icons
+                    i.cart.icon
+                    i.corner.asterisk.icon
+        if isInRole 'admin'
+            a.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                i.configure.icon
+                // | Admin
+        a.item(href="/account/profile/edit" class="{{isActivePath '/account/profile/edit'}}")
+            .ui.inverted.mini.statistic
+                .value
+                    if currentUser.profile.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    | #{currentUser.points}
+                .label
+                    if currentUser.name
+                        | #{currentUser.name}
+                    else
+                        | #{currentUser.username}
+        a#logout.ui.item(href='#')
+            i.sign.out.icon
+    else
+        a.ui.item(href='/sign-in') 
+            i.sign.in.icon

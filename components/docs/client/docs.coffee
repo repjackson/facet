@@ -42,12 +42,19 @@ Template.docs.helpers
         else ''
 
 
+
 Template.view.helpers
     is_editing: -> Session.equals 'editing_id', @_id
     is_author: -> Meteor.userId() and @author_id is Meteor.userId()
     tag_class: -> if @valueOf() in selected_tags.array() then 'active' else ''
 
     when: -> moment(@timestamp).fromNow()
+    day: -> moment(@start_datetime).format("dddd, MMMM Do");
+    start_time: -> moment(@start_datetime).format("h:mm a")
+    end_time: -> moment(@end_datetime).format("h:mm a")
+
+
+
 
 Template.view.events
     'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())

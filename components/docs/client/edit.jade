@@ -28,31 +28,14 @@ template(name='edit')
                     .label date/time
                     input#datetimepicker(type="text" value=dateTime placeholder='add date/time')
                     .ui.button.clearDT clear date/time
-                if keywords
-                    .ui.segment
-                        .ui.header suggestions
-                        if keywords
-                            div keywords
-                                each keywords
-                                    .docKeyword.ui.compact.button(class=docKeywordClass) #{text}
-                        if concepts
-                            div concepts
-                                each concepts
-                                    .docKeyword.ui.compact.button(class=docKeywordClass) #{text}
-                if sentiment
-                    |sentiment: #{docSentiment.type} #{docSentiment.score}
-                if language
-                    |language: #{language}
-                if taxonomy
-                    p taxonomy
-                    each taxonomy
-                        .ui.label
-                            div #{label}
-                            // div Score: #{score}
-                            // div Confident: #{confident}
-                // .ui.basic.segment
-                //     #analyzeBody.ui.basic.button analyze body
-                //     +CodeMirror id="body" options=editorOptions code=body
+                .ui.header add custom fields
+                .two.fields
+                    .field
+                        .label key
+                        input#key(type="text" value=key)
+                    .field
+                        .label value
+                        input#value(type="text" value=value)
                 +content
             .ui.basic.center.aligned.segment
                 #saveDoc.ui.large.button save
