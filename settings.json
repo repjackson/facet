@@ -14,6 +14,8 @@
       "liveSecretKey": "sk_live_f0QHHkiCuftpYG49819oyrFr"
     }
   },
+  "cloudinary_key": "754714459692734",
+  "cloudinary_secret": "rPPXD3rZM_GCjODvh0T70XeDCSw",
   "galaxy.meteor.com": {
     "env": {
       "MONGO_URL": "mongodb://facetadmin:Turnf34ragainst!@aws-us-east-1-portal.21.dblayer.com:10444/facetdb?ssl=true",

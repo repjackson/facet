@@ -32,18 +32,18 @@
                 i.configure.icon
                 // | Admin
         a.item(href="/account/profile/edit" class="{{isActivePath '/account/profile/edit'}}")
-            .ui.inverted.mini.statistic
-                .value
-                    if currentUser.profile.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    | #{currentUser.points}
-                .label
-                    if currentUser.name
-                        | #{currentUser.name}
-                    else
-                        | #{currentUser.username}
+            // .ui.inverted.mini.statistic
+            //     .value
+            //         if currentUser.profile.image_id
+            //             img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+            //         else
+            //             i.user.icon
+            //         | #{currentUser.points}
+            //     .label
+            if currentUser.name
+                | #{currentUser.name}
+            else
+                | #{currentUser.username}
         a#logout.ui.item(href='#')
             i.sign.out.icon
     else

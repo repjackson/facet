@@ -32,4 +32,6 @@ Template.registerHelper 'is_editing', () ->
 Template.registerHelper 'is_dev', () -> Meteor.isDevelopment
 
 
+$.cloudinary.config
+    cloud_name:"facet"
         

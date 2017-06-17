@@ -1,13 +1,13 @@
 template(name='edit')
-    with doc
-        .ui.container.segment
+    .ui.container.segment
+        .ui.center.aligned.header edit doc
+        with doc
             // .ui.segment
             //     .ui.header elements
             //     each elements
             //         .ui.labeled.icon.button
             //             i.plus.icon
             //             |#{this}
-            .ui.center.aligned.header edit doc
             .ui.form
                 .field
                     .label doc tags
@@ -18,7 +18,16 @@ template(name='edit')
                     .ui.left.icon.input
                         i.plus.icon
                         input#addTag(type=text placeholder='add...' autofocus='')
-                +image
+                .field
+                    if image_id
+                        label Image
+                        .ui.large.image
+                            img(src="{{c.url image_id width=500 crop='fit'}}")
+                            a#remove_photo.ui.top.left.attached.link.blue.label Remove
+                            .ui.bottom.right.attached.blue.label Image Id: #{image_id}
+                    else
+                        label Upload Image
+                        input(type='file' name='upload_picture' accept='image/*')
                 // +number
                 // +price
                 // .field

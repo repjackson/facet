@@ -91,27 +91,27 @@ template(name='location')
 
 template(name='content')
     .field
-        // label Content
+        label Description
         .froala-container
             +froalaReactive getFEContext
     
     
 template(name='image')
-    .ui.form
-        if image_id
+    // .ui.form?
+    if image_id
+        .field
+            label Image
+            .ui.large.image
+                img(src="{{c.url image_id width=500 crop='fit'}}")
+                a#remove_photo.ui.top.left.attached.link.blue.label Remove
+                .ui.bottom.right.attached.blue.label Image Id: #{image_id}
+    else
+        .fields
             .field
-                label Image
-                .ui.large.image
-                    img(src="{{c.url image_id width=500 crop='fit'}}")
-                    a#remove_photo.ui.top.left.attached.link.blue.label Remove
-                    .ui.bottom.right.attached.blue.label Image Id: #{image_id}
-        else
-            .fields
-                .field
-                    label Upload Image
-                    input(type='file' name='upload_picture' accept='image/*')
-                if isInRole 'admin'
-                    .field
-                        label or Choose Cloudinary Image Id
-                        input#input_image_id(type='text')
+                label Upload Image
+                input(type='file' name='upload_picture' accept='image/*')
+            // if isInRole 'admin'
+            //     .field
+            //         label or Choose Cloudinary Image Id
+            //         input#input_image_id(type='text')
     

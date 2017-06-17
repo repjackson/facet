@@ -132,7 +132,7 @@ Template.image.events
     "change input[type='file']": (e) ->
         doc_id = @_id
         files = e.currentTarget.files
-
+        console.log files
 
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
