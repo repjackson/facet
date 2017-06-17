@@ -113,6 +113,18 @@ Template.link.events
         Docs.update @_id,
             $set: link: link
             
+Template.youtube.events
+    'blur #youtube': (e,t)->
+        youtube = $(e.currentTarget).closest('#youtube').val()
+        Docs.update @_id,
+            $set: youtube: youtube
+            
+    'click #clear_youtube': (e,t)->
+        $(e.currentTarget).closest('#youtube').val('')
+        Docs.update @_id,
+            $unset: youtube: 1
+            
+            
             
 Template.page_name.events
     'blur #name': (e,t)->

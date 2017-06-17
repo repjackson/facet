@@ -1,6 +1,6 @@
 template(name='edit')
     .ui.container.segment
-        .ui.center.aligned.header edit doc
+        h1 edit
         with doc
             // .ui.segment
             //     .ui.header elements
@@ -9,24 +9,28 @@ template(name='edit')
             //             i.plus.icon
             //             |#{this}
             .ui.form
-                .field
-                    .label doc tags
-                    each tags
-                        .ui.labeled.icon.button.docTag
-                            i.remove.icon
-                            |#{this}
-                    .ui.left.icon.input
-                        i.plus.icon
-                        input#addTag(type=text placeholder='add...' autofocus='')
+                // .field
+                h4 tags
+                each tags
+                    .ui.labeled.icon.button.docTag
+                        i.remove.icon
+                        |#{this}
+                .ui.left.icon.input
+                    i.plus.icon
+                    input#addTag(type=text placeholder='add...' autofocus='')
+                .ui.segment
+                    +youtube
+                    if youtube
+                        +view_youtube
                 .field
                     if image_id
-                        label Image
+                        label image
                         .ui.large.image
                             img(src="{{c.url image_id width=500 crop='fit'}}")
                             a#remove_photo.ui.top.left.attached.link.blue.label Remove
                             .ui.bottom.right.attached.blue.label Image Id: #{image_id}
                     else
-                        label Upload Image
+                        label upload image
                         input(type='file' name='upload_picture' accept='image/*')
                 // +number
                 // +price

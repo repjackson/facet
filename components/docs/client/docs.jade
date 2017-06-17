@@ -1,9 +1,10 @@
 template(name='docs')
     .ui.stackable.grid
         .six.wide.column
-            .ui.horizontal.divider.header filters
-            +tag_cloud
-            +number_cloud
+            // .ui.horizontal.divider.header filters
+            .ui.segment
+                +tag_cloud
+            // +number_cloud
             // if currentUser
             //     #add.ui.icon.button
             //         i.plus.icon
@@ -11,49 +12,55 @@ template(name='docs')
             //         // i.plus.icon
             //         input#quick_add(type='text' placeholder='quick add')
             //         i.lightning.icon
-            .ui.header votes
+            // .ui.header votes
             // a#set_mode_to_all.item(class=all_item_class) 
             //     |All
             // a#select_unvoted.item(class=unvoted_item_class) 
             //     |Unvoted
-            #toggle_voted_up.ui.icon.button(class=voted_up_class) 
-                i.thumbs.up.icon
-                | (#{voted_up_count})
-                // |Voted Up (#{voted_up_count})
-            #toggle_voted_down.ui.icon.button(class=voted_down_class) 
-                i.thumbs.down.icon
-                |(#{voted_down_count})
-                // |Voted Down (#{voted_down_count})
+            // #toggle_voted_up.ui.icon.button(class=voted_up_class) 
+            //     i.thumbs.up.icon
+            //     | (#{voted_up_count})
+            //     // |Voted Up (#{voted_up_count})
+            // #toggle_voted_down.ui.icon.button(class=voted_down_class) 
+            //     i.thumbs.down.icon
+            //     |(#{voted_down_count})
+            //     // |Voted Down (#{voted_down_count})
                 
         .ten.wide.column
-            .ui.horizontal.divider.header docs
-            each docs
-                // if one_doc
-                +view
+            // .ui.horizontal.divider.header docs
+            .ui.two.stackable.cards
+                each docs
+                    // if one_doc
+                    .ui.card
+                        +view
 
 
 
 
 template(name='view')
-    .ui.segment
-        if title
-            .ui.header #{title}
+    if youtube
+        +view_youtube
+    if image_id
+        .image
+            img(src="{{c.url image_id height=400 crop='fit'}}")
+    .content
+
         .description
             |!{content}
         .meta
             i.tags.icon
             each tags
                 .ui.button.tag(class=tag_class) #{this}
-        if price
-            .ui.header price $#{price}
-        if number
-            .ui.header number ##{number}
-        if start_datetime
-            .ui.sub.header #{day} 
-            .ui.sub.header #{start_time} to #{end_time}
+        // if price
+        //     .ui.header price $#{price}
+        // if number
+        //     .ui.header number ##{number}
+        // if start_datetime
+        //     .ui.sub.header #{day} 
+        //     .ui.sub.header #{start_time} to #{end_time}
 
         if is_author
             a.ui.icon.button(href="/edit/#{_id}")
                 i.pencil.icon
         | by #{author.username} #{when}
-        +both_voter
+        // +both_voter

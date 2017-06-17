@@ -54,8 +54,6 @@ Template.view.helpers
     end_time: -> moment(@end_datetime).format("h:mm a")
 
 
-
-
 Template.view.events
     'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
 

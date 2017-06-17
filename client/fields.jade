@@ -66,6 +66,18 @@ template(name='link')
             i.linkify.icon
             input#link(type='text' value=link)
 
+template(name='youtube')
+    .field
+        label youtube id
+        .ui.left.icon.action.input
+            i.youtube.icon
+            input#youtube(type='text' value=youtube)
+            .ui.icon.button#clear_youtube
+                i.remove.icon
+
+template(name='view_youtube')
+    .ui.embed(data-source="youtube" data-id=youtube data-icon="video")
+
 
 template(name='page_name')
     .field
@@ -91,7 +103,7 @@ template(name='location')
 
 template(name='content')
     .field
-        label Description
+        label description
         .froala-container
             +froalaReactive getFEContext
     
@@ -100,15 +112,15 @@ template(name='image')
     // .ui.form?
     if image_id
         .field
-            label Image
+            label image
             .ui.large.image
                 img(src="{{c.url image_id width=500 crop='fit'}}")
-                a#remove_photo.ui.top.left.attached.link.blue.label Remove
-                .ui.bottom.right.attached.blue.label Image Id: #{image_id}
+                a#remove_photo.ui.top.left.attached.link.blue.label remove
+                .ui.bottom.right.attached.blue.label image Id: #{image_id}
     else
         .fields
             .field
-                label Upload Image
+                label upload image
                 input(type='file' name='upload_picture' accept='image/*')
             // if isInRole 'admin'
             //     .field

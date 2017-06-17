@@ -18,14 +18,14 @@ Template.tag_cloud.helpers
         if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 20)
         # Tags.find()
         
-    # tag_cloud_class: ->
-    #     button_class = switch
-    #         when @index <= 20 then 'big'
-    #         when @index <= 40 then 'large'
-    #         when @index <= 60 then ''
-    #         when @index <= 80 then 'small'
-    #         when @index <= 100 then 'tiny'
-    #     return button_class
+    tag_cloud_class: ->
+        button_class = switch
+            when @index <= 5 then 'big'
+            when @index <= 10 then 'large'
+            when @index <= 15 then ''
+            when @index <= 20 then 'small'
+            when @index <= 25 then 'tiny'
+        return button_class
 
     settings: -> {
         position: 'bottom'

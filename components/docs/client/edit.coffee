@@ -11,7 +11,11 @@ Template.edit.onCreated ->
     @autorun => Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
 
 
-# Template.edit.onRendered ->
+Template.view_youtube.onRendered ->
+    Meteor.setTimeout (->
+        $('.ui.embed').embed()
+    ), 2000
+
     # Meteor.setTimeout (->
     #     $('#datetimepicker').datetimepicker(
     #         onChangeDateTime: (dp,$input)->
@@ -87,12 +91,9 @@ Template.edit.events
                         $push: tags: tag
                     $('#addTag').val('')
                 else
-                    Docs.update FlowRouter.getParam('doc_id'),
-                        $set: body: $('#body').val()
-
-                    thisDocTags = @tags
                     FlowRouter.go '/'
-                    selectedTags = thisDocTags
+                    selected_tags.clear()
+                    selected_tags.push tag for tag in @tags
 
     'click .clearDT': ->
         tagsWithoutDate = _.difference(@tags, @datearray)
