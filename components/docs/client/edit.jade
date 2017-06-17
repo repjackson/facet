@@ -18,20 +18,34 @@ template(name='edit')
                 .ui.left.icon.input
                     i.plus.icon
                     input#addTag(type=text placeholder='add...' autofocus='')
-                .ui.segment
-                    +youtube
+                unless image_id
+                    unless image_url
+                        .ui.segment
+                            +youtube
                     if youtube
-                        +view_youtube
+                                +view_youtube
                 .field
                     if image_id
                         label image
                         .ui.large.image
                             img(src="{{c.url image_id width=500 crop='fit'}}")
-                            a#remove_photo.ui.top.left.attached.link.blue.label Remove
+                            a#remove_photo.ui.top.left.attached.link.blue.label remove
                             .ui.bottom.right.attached.blue.label Image Id: #{image_id}
                     else
-                        label upload image
-                        input(type='file' name='upload_picture' accept='image/*')
+                        unless image_url
+                            label upload image
+                            input(type='file' name='upload_picture' accept='image/*')
+                    if image_url
+                        label image
+                        .ui.large.image
+                            img(src=image_url)
+                            a#remove_photo.ui.top.left.attached.link.blue.label remove
+                        .ui.label image url: #{image_url}
+                    else
+                        unless image_id
+                            label image url
+                            input#image_url(type='text' value=image_url)
+
                 // +number
                 // +price
                 // .field
@@ -54,5 +68,5 @@ template(name='edit')
                     | clear content
                 +content
             .ui.basic.center.aligned.segment
-                #saveDoc.ui.large.button save
+                #saveDoc.ui.big.button save
                 #deleteDoc.ui.button delete

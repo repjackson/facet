@@ -15,16 +15,16 @@ Template.tag_cloud.onCreated ->
 Template.tag_cloud.helpers
     all_tags: ->
         doc_count = Docs.find().count()
-        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 20)
+        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 42)
         # Tags.find()
         
     tag_cloud_class: ->
         button_class = switch
-            when @index <= 5 then 'big'
-            when @index <= 10 then 'large'
-            when @index <= 15 then ''
-            when @index <= 20 then 'small'
-            when @index <= 25 then 'tiny'
+            when @index <= 10 then 'big'
+            when @index <= 20 then 'large'
+            when @index <= 30 then ''
+            when @index <= 40 then 'small'
+            when @index <= 50 then 'tiny'
         return button_class
 
     settings: -> {

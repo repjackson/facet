@@ -1,9 +1,9 @@
 template(name='docs')
-    .ui.stackable.grid
-        .six.wide.column
+    // .ui.stackable.grid
+        // .six.wide.column
             // .ui.horizontal.divider.header filters
-            .ui.segment
-                +tag_cloud
+    .ui.segment
+        +tag_cloud
             // +number_cloud
             // if currentUser
             //     #add.ui.icon.button
@@ -26,13 +26,13 @@ template(name='docs')
             //     |(#{voted_down_count})
             //     // |Voted Down (#{voted_down_count})
                 
-        .ten.wide.column
+        // .ten.wide.column
             // .ui.horizontal.divider.header docs
-            .ui.two.stackable.cards
-                each docs
-                    // if one_doc
-                    .ui.card
-                        +view
+    .ui.stackable.centered.cards
+        each docs
+            // if one_doc
+            .ui.card
+                +view
 
 
 
@@ -43,6 +43,9 @@ template(name='view')
     if image_id
         .image
             img(src="{{c.url image_id height=400 crop='fit'}}")
+    if image_url
+        .image
+            img(src=image_url)
     .content
 
         .description
@@ -62,5 +65,6 @@ template(name='view')
         if is_author
             a.ui.icon.button(href="/edit/#{_id}")
                 i.pencil.icon
-        | by #{author.username} #{when}
+        // | by #{author.username} #{when}
+        | #{when}
         // +both_voter

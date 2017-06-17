@@ -2,7 +2,7 @@ template(name='tag_cloud')
     // .ui.header tag
     .ui.left.icon.input
         i.search.icon
-        +inputAutocomplete settings=settings id="search" class="" autofocus='' autocomplete="off" placeholder='search tags'
+        +inputAutocomplete settings=settings id="search" class="" autofocus='' autocomplete="off"
     if selected_tags
         #clear_tags.ui.active.compact.big.icon.button
             i.remove.icon
@@ -11,10 +11,15 @@ template(name='tag_cloud')
             a.ui.active.compact.big.button.unselect_tag
                 strong #{this}
     each all_tags
-        .ui.compact.button.select_tag(class=tag_cloud_class) #{this.name}
-        // .ui.button.select_tag 
-            strong #{this.name}
-            small #{this.count}
+        // .ui.compact.animated.fade.button.select_tag(class=tag_cloud_class)
+        //     .visible.content
+        //         strong #{this.name}
+        //     .hidden.content
+        //         strong #{this.name} 
+        //         small #{this.count}
+        .ui.compact.button.select_tag(class=tag_cloud_class)
+            strong #{this.name} 
+                
 
 
 template(name='number_cloud')  

@@ -45,7 +45,6 @@ perak:codemirror
 drewy:datetimepicker
 jeremy:geocomplete
 tmeasday:publish-counts
-http@1.2.12
 lepozepo:cloudinary
 reactive-var@1.0.11
 dynamic-import

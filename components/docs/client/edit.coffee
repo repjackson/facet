@@ -181,15 +181,16 @@ Template.edit.events
         }, =>
             doc = Docs.findOne FlowRouter.getParam('doc_id')
             Meteor.call "c.delete_by_public_id", doc.image_id, (err,res) ->
-                if not err
+                if err
+                    throw new Meteor.Error "it failed miserably"
                     # Do Stuff with res
                     # console.log res
                     # console.log doc._id
-                    Docs.update doc._id, 
-                        $unset: image_id: 1
-
-                else
-                    throw new Meteor.Error "it failed miserably"
+                # else
+            Docs.update doc._id, 
+                $unset: 
+                    image_id: 1
+                    image_url: 1
 
     #         console.log Cloudinary
     # 		Cloudinary.delete "37hr", (err,res) ->
@@ -199,3 +200,10 @@ Template.edit.events
     #     			console.log "Upload Result: #{res}"
     #                 # Docs.update @_id, 
     #                 #     $unset: image_id: 1
+
+
+    'blur #image_url': ->
+        image_url = $('#image_url').val()
+        Docs.update FlowRouter.getParam('doc_id'),
+            $set: image_url: image_url
+            

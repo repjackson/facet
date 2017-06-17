@@ -72,7 +72,8 @@ publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvo
             if view_upvoted then match.upvoters = $in: [@userId]
             if view_downvoted then match.downvoters = $in: [@userId]
 
-            if selected_tags.length > 0 then match.tags = $all: selected_tags
+            # if selected_tags.length > 0 then match.tags = $all: selected_tags
+            match.tags = $all: selected_tags
             if selected_numbers.length > 0 then match.number = $all: selected_numbers
             if limit
                 Docs.find match, 
@@ -80,7 +81,7 @@ publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvo
             else
                 Docs.find match,
                     sort: tag_count: 1
-                    limit: 5
+                    limit: 8
                 
                 
         children: [
