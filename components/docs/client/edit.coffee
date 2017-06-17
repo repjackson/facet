@@ -103,6 +103,24 @@ Template.edit.events
                 datearray: []
                 dateTime: null
         $('#datetimepicker').val('')
+    
+    'click #clear_content': ->
+        swal {
+            title: 'clear content?'
+            type: 'warning'
+            animation: false
+            showCancelButton: true
+            closeOnConfirm: true
+            cancelButtonText: 'no'
+            confirmButtonText: 'clear'
+            confirmButtonColor: '#da5347'
+        }, =>
+            doc = Docs.findOne FlowRouter.getParam('doc_id')
+            Docs.update FlowRouter.getParam('doc_id'),
+                $unset:
+                    content: 1
+            swal 'content cleared', 'success'
+
 
     'click .docTag': ->
         tag = @valueOf()
