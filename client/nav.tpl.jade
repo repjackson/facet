@@ -5,16 +5,19 @@
         // |     Menu
     a.item(href='/' class="{{isActivePath '/'}}")
         i.large.square.outline.icon
-    a#set_mode_to_all.item(class=all_item_class) 
-        i.calendar.large.icon
-    a#select_unvoted.item(class=unvoted_item_class) 
-        i.grid.layout.large.icon
-    a#toggle_voted_up.item(class=voted_up_class) 
-        i.list.layout.large.icon
-    a#toggle_voted_down.item(class=voted_down_class) 
-        i.map.large.icon
-    a#toggle_voted_down.item(class=voted_down_class) 
-        i.shop.large.icon
+    a.item(href='/groups' class="{{isActivePath '/groups'}}")
+        i.large.users.icon
+        
+    // a#set_mode_to_all.item(class=all_item_class) 
+    //     i.calendar.large.icon
+    // a#select_unvoted.item(class=unvoted_item_class) 
+    //     i.grid.layout.large.icon
+    // a#toggle_voted_up.item(class=voted_up_class) 
+    //     i.list.layout.large.icon
+    // a#toggle_voted_down.item(class=voted_down_class) 
+    //     i.map.large.icon
+    // a#toggle_voted_down.item(class=voted_down_class) 
+    //     i.shop.large.icon
     // .ui.vertical.divider    
     if currentUser
         a#add_doc.icon.large.item

@@ -1,12 +1,12 @@
 template(name='edit')
     with doc
         .ui.container.segment
-            .ui.segment
-                .ui.header elements
-                each elements
-                    .ui.labeled.icon.button
-                        i.plus.icon
-                        |#{this}
+            // .ui.segment
+            //     .ui.header elements
+            //     each elements
+            //         .ui.labeled.icon.button
+            //             i.plus.icon
+            //             |#{this}
             .ui.center.aligned.header edit doc
             .ui.form
                 .field
@@ -18,24 +18,24 @@ template(name='edit')
                     .ui.left.icon.input
                         i.plus.icon
                         input#addTag(type=text placeholder='add...' autofocus='')
-                +title
-                +number
-                +price
-                .field
-                    .label location
-                    input#place(type='text' placeholder='add address')
-                .field
-                    .label date/time
-                    input#datetimepicker(type="text" value=dateTime placeholder='add date/time')
-                    .ui.button.clearDT clear date/time
-                .ui.header add custom fields
-                .two.fields
-                    .field
-                        .label key
-                        input#key(type="text" value=key)
-                    .field
-                        .label value
-                        input#value(type="text" value=value)
+                +image
+                // +number
+                // +price
+                // .field
+                //     .label location
+                //     input#place(type='text' placeholder='add address')
+                // .field
+                //     .label date/time
+                //     input#datetimepicker(type="text" value=dateTime placeholder='add date/time')
+                //     .ui.button.clearDT clear date/time
+                // .ui.header add custom fields
+                // .two.fields
+                //     .field
+                //         .label key
+                //         input#key(type="text" value=key)
+                //     .field
+                //         .label value
+                //         input#value(type="text" value=value)
                 +content
             .ui.basic.center.aligned.segment
                 #saveDoc.ui.large.button save

@@ -1,7 +1,7 @@
 FlowRouter.route '/edit/:doc_id',
     action: (params) ->
         BlazeLayout.render 'layout',
-            top: 'nav'
+            # top: 'nav'
             main: 'edit'
 
 
