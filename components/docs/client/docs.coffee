@@ -56,8 +56,12 @@ Template.view.helpers
 
 Template.view.events
     'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
-
     'click .edit': -> Session.set 'editing_id', @_id
+
+    'click .expand_card': (e,t)->
+            $(e.currentTarget).closest('.card').toggleClass 'fluid'
+
+
 
 Template.docs.events
     'click #add': ->

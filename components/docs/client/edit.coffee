@@ -88,7 +88,7 @@ Template.edit.events
             when 13
                 if tag.length > 0
                     Docs.update FlowRouter.getParam('doc_id'),
-                        $push: tags: tag
+                        $addToSet: tags: tag
                     $('#addTag').val('')
                 else
                     FlowRouter.go '/'

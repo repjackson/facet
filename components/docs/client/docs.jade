@@ -42,12 +42,14 @@ template(name='view')
         +view_youtube
     if image_id
         .image
-            img(src="{{c.url image_id height=400 crop='fit'}}")
+            img(src="{{c.url image_id}}")
     if image_url
         .image
             img(src=image_url)
     .content
-
+        span.right.floated 
+            .expand_card.ui.basic.icon.button
+                i.expand.icon
         .description
             |!{content}
         .meta
