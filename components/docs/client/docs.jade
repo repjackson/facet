@@ -3,15 +3,16 @@ template(name='docs')
         // .six.wide.column
             // .ui.horizontal.divider.header filters
     .ui.segment
+        div
+            if currentUser
+                .ui.icon.input
+                    // i.plus.icon
+                    input#quick_add(type='text' placeholder='quick add')
+                    i.lightning.icon
         +tag_cloud
             // +number_cloud
-            // if currentUser
             //     #add.ui.icon.button
             //         i.plus.icon
-            //     .ui.icon.input
-            //         // i.plus.icon
-            //         input#quick_add(type='text' placeholder='quick add')
-            //         i.lightning.icon
             // .ui.header votes
             // a#set_mode_to_all.item(class=all_item_class) 
             //     |All

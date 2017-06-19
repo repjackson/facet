@@ -9,9 +9,9 @@ Template.docs.onCreated ->
             view_upvoted=Session.get('view_upvoted') 
             view_downvoted=Session.get('view_downvoted') 
         )
-    @autorun -> Meteor.subscribe 'unvoted_count'
-    @autorun -> Meteor.subscribe 'voted_up_count'
-    @autorun -> Meteor.subscribe 'voted_down_count'
+    # @autorun -> Meteor.subscribe 'unvoted_count'
+    # @autorun -> Meteor.subscribe 'voted_up_count'
+    # @autorun -> Meteor.subscribe 'voted_down_count'
 
 Template.docs.helpers
     docs: -> 
@@ -29,17 +29,17 @@ Template.docs.helpers
     voted_up_count: -> Counts.get('voted_up_count')
     voted_down_count: -> Counts.get('voted_down_count')
 
-    voted_up_class: -> 
-        if Session.equals 'view_upvoted', true then 'active' else ''
-    voted_down_class: -> 
-        if Session.equals 'view_downvoted', true then 'active' else ''
-    unvoted_item_class: -> 
-        if Session.equals('view_unvoted', true) and Session.equals('view_upvoted', false) and Session.equals('view_downvoted', false) then 'active' else ''
+    # voted_up_class: -> 
+    #     if Session.equals 'view_upvoted', true then 'active' else ''
+    # voted_down_class: -> 
+    #     if Session.equals 'view_downvoted', true then 'active' else ''
+    # unvoted_item_class: -> 
+    #     if Session.equals('view_unvoted', true) and Session.equals('view_upvoted', false) and Session.equals('view_downvoted', false) then 'active' else ''
     
-    all_item_class: -> 
-        if Session.equals('view_unvoted', false) and Session.equals('view_upvoted', false) and Session.equals('view_unvoted', false)
-            'active' 
-        else ''
+    # all_item_class: -> 
+    #     if Session.equals('view_unvoted', false) and Session.equals('view_upvoted', false) and Session.equals('view_unvoted', false)
+    #         'active' 
+    #     else ''
 
 
 

@@ -81,7 +81,7 @@ publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvo
             else
                 Docs.find match,
                     sort: tag_count: 1
-                    limit: 8
+                    limit: 7
                 
                 
         children: [
