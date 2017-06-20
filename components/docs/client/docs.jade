@@ -64,7 +64,9 @@ template(name='view')
         // if start_datetime
         //     .ui.sub.header #{day} 
         //     .ui.sub.header #{start_time} to #{end_time}
-
+        if currentUser
+            a.clone.ui.icon.button
+                i.fork.icon
         if is_author
             a.ui.icon.button(href="/edit/#{_id}")
                 i.pencil.icon

@@ -56,7 +56,9 @@ Template.view.helpers
 
 Template.view.events
     'click .tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove(@valueOf()) else selected_tags.push(@valueOf())
-    'click .edit': -> Session.set 'editing_id', @_id
+    'click .clone': -> 
+        id = Docs.insert tags: @tags
+        FlowRouter.go "/edit/#{id}"
 
     'click .expand_card': (e,t)->
             $(e.currentTarget).closest('.card').toggleClass 'fluid'
@@ -73,7 +75,8 @@ Template.docs.events
         tags = $('#quick_add').val().toLowerCase()
         if e.which is 13
             if tags.length > 0
-                split_tags = tags.match(/\S+/g)
+                # split_tags = tags.match(/\S+/g)
+                split_tags = tags.split(',')
                 $('#quick_add').val('')
                 Docs.insert
                     tags: split_tags
@@ -82,39 +85,39 @@ Template.docs.events
                     selected_tags.push tag
 
 
-    'click #set_mode_to_all': -> 
-        if Meteor.userId() 
-            Session.set 'view_unvoted', false
-            Session.set 'view_upvoted', false
-            Session.set 'view_downvoted', false
-        else FlowRouter.go '/sign-in'
+    # 'click #set_mode_to_all': -> 
+    #     if Meteor.userId() 
+    #         Session.set 'view_unvoted', false
+    #         Session.set 'view_upvoted', false
+    #         Session.set 'view_downvoted', false
+    #     else FlowRouter.go '/sign-in'
 
-    'click #select_unvoted': -> 
-        if Meteor.userId() 
-            Session.set 'view_unvoted', true
-            Session.set 'view_upvoted', false
-            Session.set 'view_downvoted', false
-        else FlowRouter.go '/sign-in'
+    # 'click #select_unvoted': -> 
+    #     if Meteor.userId() 
+    #         Session.set 'view_unvoted', true
+    #         Session.set 'view_upvoted', false
+    #         Session.set 'view_downvoted', false
+    #     else FlowRouter.go '/sign-in'
     
-    'click #toggle_voted_up': -> 
-        if Meteor.userId() 
-            if Session.equals 'view_upvoted', true
-                Session.set 'view_upvoted', false
-            else 
-                Session.set 'view_upvoted', true
-                Session.set 'view_downvoted', false
-                Session.set 'view_unvoted', false
-        else FlowRouter.go '/sign-in'
+    # 'click #toggle_voted_up': -> 
+    #     if Meteor.userId() 
+    #         if Session.equals 'view_upvoted', true
+    #             Session.set 'view_upvoted', false
+    #         else 
+    #             Session.set 'view_upvoted', true
+    #             Session.set 'view_downvoted', false
+    #             Session.set 'view_unvoted', false
+    #     else FlowRouter.go '/sign-in'
     
-    'click #toggle_voted_down': -> 
-        if Meteor.userId() 
-            if Session.equals 'view_downvoted', true
-                Session.set 'view_downvoted', false
-            else 
-                Session.set 'view_downvoted', true
-                Session.set 'view_upvoted', false
-                Session.set 'view_unvoted', false
-        else FlowRouter.go '/sign-in'
+    # 'click #toggle_voted_down': -> 
+    #     if Meteor.userId() 
+    #         if Session.equals 'view_downvoted', true
+    #             Session.set 'view_downvoted', false
+    #         else 
+    #             Session.set 'view_downvoted', true
+    #             Session.set 'view_upvoted', false
+    #             Session.set 'view_unvoted', false
+    #     else FlowRouter.go '/sign-in'
 
 
 
