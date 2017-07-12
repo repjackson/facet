@@ -75,8 +75,8 @@ Template.docs.events
         tags = $('#quick_add').val().toLowerCase()
         if e.which is 13
             if tags.length > 0
-                # split_tags = tags.match(/\S+/g)
-                split_tags = tags.split(',')
+                split_tags = tags.match(/\S+/g)
+                # split_tags = tags.split(',')
                 $('#quick_add').val('')
                 Docs.insert
                     tags: split_tags

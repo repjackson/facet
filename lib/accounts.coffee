@@ -8,7 +8,7 @@ AccountsTemplates.configure
     overrideLoginErrors: true
     enablePasswordChange: true
 
-    sendVerificationEmail: true
+    sendVerificationEmail: false
     enforceEmailVerification: false
     confirmPassword: true
     continuousValidation: true
