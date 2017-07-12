@@ -6,31 +6,16 @@ Meteor.publish 'userStatus', ->
             
             
             
-Meteor.publish 'user_status_notification', ->
-    Meteor.users.find('status.online': true).observe
-        added: (id) ->
-            console.log "#{id} just logged in"
-        removed: (id) ->
-            console.log "#{id} just logged out"
+# Meteor.publish 'user_status_notification', ->
+#     Meteor.users.find('status.online': true).observe
+#         added: (id) ->
+#             console.log "#{id} just logged in"
+#         removed: (id) ->
+#             console.log "#{id} just logged out"
 
-Meteor.publish 'tags', (selected_tags, selected_numbers, limit, view_unvoted, view_upvoted, view_downvoted)->
+Meteor.publish 'tags', (selected_tags)->
     self = @
     match = {}
-    if selected_tags.length > 0 then match.tags = $all: selected_tags
-    if selected_numbers.length > 0 then match.numbers = $all: selected_numbers
-    # if filter then match.type = filter
-    
-    # console.log selected_numbers
-    # console.log selected_tags
-    if view_unvoted 
-        match.$or =
-            [
-                upvoters: $nin: [@userId]
-                downvoters: $nin: [@userId]
-                ]
-    if view_upvoted then match.upvoters = $in: [@userId]
-    if view_downvoted then match.downvoters = $in: [@userId]
-
 
     cloud = Docs.aggregate [
         { $match: match }
@@ -39,7 +24,7 @@ Meteor.publish 'tags', (selected_tags, selected_numbers, limit, view_unvoted, vi
         { $group: _id: "$tags", count: $sum: 1 }
         { $match: _id: $nin: selected_tags }
         { $sort: count: -1, _id: 1 }
-        { $limit: 100 }
+        { $limit: 42 }
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
 
@@ -55,7 +40,7 @@ Meteor.publish 'tags', (selected_tags, selected_numbers, limit, view_unvoted, vi
     self.ready()
 
 
-publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvoted, view_upvoted, view_downvoted)->
+publishComposite 'docs', (selected_tags)->
     {
         find: ->
             # if editing_id
@@ -63,33 +48,18 @@ publishComposite 'docs', (selected_tags, selected_numbers, limit=null, view_unvo
             # else
             self = @
             match = {}
-            if view_unvoted 
-                match.$or =
-                    [
-                        upvoters: $nin: [@userId]
-                        downvoters: $nin: [@userId]
-                        ]
-            if view_upvoted then match.upvoters = $in: [@userId]
-            if view_downvoted then match.downvoters = $in: [@userId]
 
             # if selected_tags.length > 0 then match.tags = $all: selected_tags
             match.tags = $all: selected_tags
-            if selected_numbers.length > 0 then match.number = $all: selected_numbers
             if limit
                 Docs.find match, 
                     limit: limit
             else
                 Docs.find match,
                     sort: tag_count: 1
-                    limit: 7
+                    limit: 5
                 
                 
-        children: [
-            find: (doc)->
-                Meteor.users.find
-                    _id: doc.author_id
-            ]
-        
     }
                     
 publishComposite 'doc', (id)->
@@ -123,12 +93,3 @@ Meteor.publish 'me', ->
             completed_ids: 1
             bookmarked_ids: 1
     
-Meteor.publish 'unvoted_count', ->
-    Counts.publish this, 'unpublished_lightbank_count', Docs.find(type: 'ballot', $or:[{upvoters: $in: [@userId]},{downvoters: $in: [@userId]} ])
-    return undefined    # otherwise coffeescript returns a Counts.publish
-Meteor.publish 'voted_up_count', ->
-    Counts.publish this, 'voted_up_count', Docs.find(type: 'ballot', upvoters: $in: [@userId])
-    return undefined    # otherwise coffeescript returns a Counts.publish
-Meteor.publish 'voted_down_count', ->
-    Counts.publish this, 'voted_down_count', Docs.find(type: 'ballot', downvoters: $in: [@userId])
-    return undefined    # otherwise coffeescript returns a Counts.publish

@@ -10,30 +10,11 @@ template(name='docs')
                     input#quick_add(type='text' placeholder='quick add')
                     i.lightning.icon
         +tag_cloud
-            // +number_cloud
-            //     #add.ui.icon.button
-            //         i.plus.icon
-            // .ui.header votes
-            // a#set_mode_to_all.item(class=all_item_class) 
-            //     |All
-            // a#select_unvoted.item(class=unvoted_item_class) 
-            //     |Unvoted
-            // #toggle_voted_up.ui.icon.button(class=voted_up_class) 
-            //     i.thumbs.up.icon
-            //     | (#{voted_up_count})
-            //     // |Voted Up (#{voted_up_count})
-            // #toggle_voted_down.ui.icon.button(class=voted_down_class) 
-            //     i.thumbs.down.icon
-            //     |(#{voted_down_count})
-            //     // |Voted Down (#{voted_down_count})
-                
-        // .ten.wide.column
-            // .ui.horizontal.divider.header docs
     .ui.stackable.centered.cards
         each docs
-            // if one_doc
-            .ui.card
-                +view
+            if one_doc
+                .ui.card
+                    +view
 
 
 

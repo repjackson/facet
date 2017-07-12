@@ -21,7 +21,7 @@ Template.docs.helpers
         Docs.find { }, 
             sort:
                 tag_count: 1
-            # limit: 1
+            limit: 1
 
     tag_class: -> if @valueOf() in selected_tags.array() then 'active' else ''
     is_editing: -> Session.equals 'editing_id', @_id
@@ -83,42 +83,6 @@ Template.docs.events
                 selected_tags.clear()
                 for tag in split_tags
                     selected_tags.push tag
-
-
-    # 'click #set_mode_to_all': -> 
-    #     if Meteor.userId() 
-    #         Session.set 'view_unvoted', false
-    #         Session.set 'view_upvoted', false
-    #         Session.set 'view_downvoted', false
-    #     else FlowRouter.go '/sign-in'
-
-    # 'click #select_unvoted': -> 
-    #     if Meteor.userId() 
-    #         Session.set 'view_unvoted', true
-    #         Session.set 'view_upvoted', false
-    #         Session.set 'view_downvoted', false
-    #     else FlowRouter.go '/sign-in'
-    
-    # 'click #toggle_voted_up': -> 
-    #     if Meteor.userId() 
-    #         if Session.equals 'view_upvoted', true
-    #             Session.set 'view_upvoted', false
-    #         else 
-    #             Session.set 'view_upvoted', true
-    #             Session.set 'view_downvoted', false
-    #             Session.set 'view_unvoted', false
-    #     else FlowRouter.go '/sign-in'
-    
-    # 'click #toggle_voted_down': -> 
-    #     if Meteor.userId() 
-    #         if Session.equals 'view_downvoted', true
-    #             Session.set 'view_downvoted', false
-    #         else 
-    #             Session.set 'view_downvoted', true
-    #             Session.set 'view_upvoted', false
-    #             Session.set 'view_unvoted', false
-    #     else FlowRouter.go '/sign-in'
-
 
 
 Template.edit.events

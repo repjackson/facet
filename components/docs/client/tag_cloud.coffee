@@ -5,17 +5,13 @@ Template.tag_cloud.onCreated ->
     @autorun => 
         Meteor.subscribe('tags', 
             selected_tags.array()
-            selected_numbers.array()
             limit=20
-            view_unvoted=Session.get('view_unvoted') 
-            view_upvoted=Session.get('view_upvoted') 
-            view_downvoted=Session.get('view_downvoted')
         )
 
 Template.tag_cloud.helpers
     all_tags: ->
         doc_count = Docs.find().count()
-        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 42)
+        if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find({}, limit: 20)
         # Tags.find()
         
     tag_cloud_class: ->

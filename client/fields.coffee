@@ -1,47 +1,4 @@
 
-Template.start_end_time.events
-    'change #start_datetime': ->
-        start_datetime = $('#start_datetime').val()
-        
-        Docs.update FlowRouter.getParam('event_id'),
-            $set: start_datetime: start_datetime
-
-
-    'change #end_datetime': ->
-        end_datetime = $('#end_datetime').val()
-        
-        Docs.update FlowRouter.getParam('event_id'),
-            $set: end_datetime: end_datetime
-            
-            
-Template.subtitle.events
-    'blur #subtitle': ->
-        subtitle = $('#subtitle').val()
-        Docs.update @_id,
-            $set: subtitle: subtitle
-            
-Template.plain.events
-    'blur #plain': ->
-        plain = $('#plain').val()
-        Docs.update @_id,
-            $set: plain: plain
-            
-            
-# Template.child_tags.events
-#     'keydown #add_tag': (e,t)->
-#         if e.which is 13
-#             tag = $('#add_tag').val().toLowerCase().trim()
-#             if tag.length > 0
-#                 Docs.update Template.parentData()._id,
-#                     $addToSet: tags: tag
-#                 $('#add_tag').val('')
-
-#     'click .doc_tag': (e,t)->
-#         tag = @valueOf()
-#         Docs.update Template.parentData()._id,
-#             $pull: tags: tag
-#         $('#add_tag').val(tag)
-
 Template.tags.events
     'keydown #add_tag': (e,t)->
         if e.which is 13
@@ -63,56 +20,6 @@ Template.tags.helpers
         _.difference(Template.parentData().tags, @filter)
 
 
-
-Template.price.events
-    'change #price': ->
-        price = parseInt $('#price').val()
-
-        Docs.update @_id,
-            $set: price: price
-            
-            
-Template.number.events
-    'blur #number': (e) ->
-        # console.log @
-        val = $(e.currentTarget).closest('#number').val()
-        number = parseInt val
-        # console.log number
-        Docs.update @_id,
-            $set: number: number
-            
-Template.slots.events
-    'blur #slots': (e) ->
-        # console.log @
-        val = $(e.currentTarget).closest('#slots').val()
-        slots = parseInt val
-        # console.log slots
-        Docs.update @_id,
-            $set: slots: slots
-            
-            
-Template.title.events
-    'blur #title': (e,t)->
-        # alert 'hi'
-        title = $(e.currentTarget).closest('#title').val()
-        Docs.update @_id,
-            $set: title: title
-            
-            
-Template.slug.events
-    'blur #slug': (e,t)->
-        # alert 'hi'
-        slug = $(e.currentTarget).closest('#slug').val()
-        Docs.update @_id,
-            $set: slug: slug
-            
-            
-Template.link.events
-    'blur #link': (e,t)->
-        link = $(e.currentTarget).closest('#link').val()
-        Docs.update @_id,
-            $set: link: link
-            
 Template.youtube.events
     'blur #youtube': (e,t)->
         youtube = $(e.currentTarget).closest('#youtube').val()
@@ -123,21 +30,6 @@ Template.youtube.events
         $(e.currentTarget).closest('#youtube').val('')
         Docs.update @_id,
             $unset: youtube: 1
-            
-            
-            
-Template.page_name.events
-    'blur #name': (e,t)->
-        name = $(e.currentTarget).closest('#name').val()
-        Docs.update @_id,
-            $set: name: name
-            
-            
-Template.type.events
-    'blur #type': (e,t)->
-        type = $('#type').val()
-        Docs.update @_id,
-            $set: type: type
             
             
 Template.image.events
@@ -200,14 +92,6 @@ Template.image.events
     #                 #     $unset: image_id: 1
 
             
-Template.location.events
-    'change #location': ->
-        doc_id = @_id
-        location = $('#location').val()
-
-        Docs.update doc_id,
-            $set: location: location
-
 Template.content.events
     'blur .froala-container': (e,t)->
         html = t.$('div.froala-reactive-meteorized-override').froalaEditor('html.get', true)
