@@ -1,23 +1,23 @@
 
-Template.tags.events
-    'keydown #add_tag': (e,t)->
-        if e.which is 13
-            tag = $('#add_tag').val().toLowerCase().trim()
-            if tag.length > 0
-                Docs.update Template.currentData()._id,
-                    $addToSet: tags: tag
-                $('#add_tag').val('')
+# Template.tags.events
+#     'keydown #add_tag': (e,t)->
+#         if e.which is 13
+#             tag = $('#add_tag').val().toLowerCase().trim()
+#             if tag.length > 0
+#                 Docs.update Template.currentData()._id,
+#                     $addToSet: tags: tag
+#                 $('#add_tag').val('')
             
 
-    'click .doc_tag': (e,t)->
-        tag = @valueOf()
-        Docs.update Template.currentData()._id,
-            $pull: tags: tag
-        $('#add_tag').val(tag)
+#     'click .doc_tag': (e,t)->
+#         tag = @valueOf()
+#         Docs.update Template.currentData()._id,
+#             $pull: tags: tag
+#         $('#add_tag').val(tag)
 
-Template.tags.helpers
-    tag_subset: ->
-        _.difference(Template.parentData().tags, @filter)
+# Template.tags.helpers
+#     tag_subset: ->
+#         _.difference(Template.parentData().tags, @filter)
 
 
 Template.youtube.events

@@ -1,21 +1,7 @@
-Meteor.publish 'userStatus', ->
-    Meteor.users.find { 'status.online': true }, 
-        fields: 
-            points: 1
-            tags: 1
-            
-            
-            
-# Meteor.publish 'user_status_notification', ->
-#     Meteor.users.find('status.online': true).observe
-#         added: (id) ->
-#             console.log "#{id} just logged in"
-#         removed: (id) ->
-#             console.log "#{id} just logged out"
-
 Meteor.publish 'tags', (selected_tags)->
     self = @
     match = {}
+    if selected_tags.length > 0 then match.tags = $all: selected_tags
 
     cloud = Docs.aggregate [
         { $match: match }
@@ -51,15 +37,9 @@ publishComposite 'docs', (selected_tags)->
 
             # if selected_tags.length > 0 then match.tags = $all: selected_tags
             match.tags = $all: selected_tags
-            if limit
-                Docs.find match, 
-                    limit: limit
-            else
-                Docs.find match,
-                    sort: tag_count: 1
-                    limit: 5
-                
-                
+            Docs.find match,
+                sort: tag_count: 1
+                limit: 5
     }
                     
 publishComposite 'doc', (id)->
@@ -82,14 +62,4 @@ publishComposite 'doc', (id)->
     }
 
 
-Meteor.publish 'me', ->
-    Meteor.users.find @userId,
-        fields: 
-            courses: 1
-            friends: 1
-            points: 1
-            status: 1
-            cart: 1
-            completed_ids: 1
-            bookmarked_ids: 1
     

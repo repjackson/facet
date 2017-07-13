@@ -3,14 +3,6 @@ Template.registerHelper 'is_user', () ->  Meteor.userId() is @_id
 
 Template.registerHelper 'can_edit', () ->  Meteor.userId() is @author_id or Roles.userIsInRole(Meteor.userId(), 'admin')
 
-Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
-
-        
-Template.registerHelper 'segment_class', () -> 
-    if Roles.userIsInRole 'admin'
-        if @published then 'raised blue' else ''
-    else
-        ''
 Template.registerHelper 'from_now', () -> moment(@timestamp).fromNow()
 
 Template.registerHelper 'long_date', () -> moment(@timestamp).format("dddd, MMMM Do, h:mm a")

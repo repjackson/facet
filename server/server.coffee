@@ -1,9 +1,3 @@
-
-
-
-
-
-
 Meteor.users.allow
     update: (userId, doc, fields, modifier) ->
         true
@@ -23,27 +17,9 @@ Cloudinary.config
     api_secret: Meteor.settings.cloudinary_secret
 
 
-# if Meteor.isDevelopment
-#     secret_key = Meteor.settings.private.stripe.testSecretKey
-#     # console.log 'using test secret key'
-# else if Meteor.isProduction
-#     secret_key = Meteor.settings.private.stripe.liveSecretKey
-# else 
-#     console.log 'not dev or prod'
-
-
-Accounts.onCreateUser (options, user) ->
-    user.points = 0
-    return user
-
-# AccountsMeld.configure
-#     askBeforeMeld: false
-#     # meldDBCallback: meldDBCallback
-#     # serviceAddedCallback: serviceAddedCallback
-
 
 Docs.allow
-    insert: (userId, doc) -> Roles.userIsInRole(userId, 'admin') or doc.author_id is userId
-    update: (userId, doc) -> Roles.userIsInRole(userId, 'admin') or doc.author_id is userId
-    remove: (userId, doc) -> Roles.userIsInRole(userId, 'admin') or doc.author_id is userId
+    insert: (userId, doc) -> doc.author_id is userId
+    update: (userId, doc) -> doc.author_id is userId
+    remove: (userId, doc) -> doc.author_id is userId
 

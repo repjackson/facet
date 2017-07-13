@@ -2,11 +2,7 @@
 
 Template.tag_cloud.onCreated ->
     # @autorun => Meteor.subscribe('tags', selected_tags.array(), @data.filter)
-    @autorun => 
-        Meteor.subscribe('tags', 
-            selected_tags.array()
-            limit=20
-        )
+    @autorun => Meteor.subscribe('tags', selected_tags.array() )
 
 Template.tag_cloud.helpers
     all_tags: ->
